@@ -22,6 +22,7 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
     String selectedAnswer = "";
     TextView totalScore;
     int totalQuestions = 5;
+    Button previousClickedButton = null;
     TextView userName;
     RadioGroup radioGroup;
     CardView questionsCardView;
@@ -57,6 +58,7 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
         String name = getIntent().getStringExtra("userName");
         //To display the correct name
         userName.setText("Welcome " + User.getInstance().getName());
+        totalScore.setText("Score " + score);
 
         // Set OnClickListener
         nextButton.setOnClickListener(this);
@@ -72,26 +74,57 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
     @Override
     public void onClick(View view) {
 
+        //Default is White
+        resetButtonColor();
+
         Button clickedButton = (Button) view;
 
-        if (clickedButton.getId() == R.id.nextBtn) {
+        if (clickedButton.getId() == R.id.nextBtn) {  // Logic for handling "Next" button click
             if(selectedAnswer.equals(Quiz.correctAnswer[currentQuestion])){
                 score++;
+                previousClickedButton.setBackgroundColor(Color.GREEN);
             }
-            currentQuestion++;
-            handleQuiz();
+            else{
+                previousClickedButton.setBackgroundColor(Color.RED);
+                // Set the correct answer button to green//To indicate correct answer
+                if (answer1.getText().toString().equals(Quiz.correctAnswer[currentQuestion])) {
+                    answer1.setBackgroundColor(Color.GREEN);
+                } else if (answer2.getText().toString().equals(Quiz.correctAnswer[currentQuestion])) {
+                    answer2.setBackgroundColor(Color.GREEN);
+                } else if (answer3.getText().toString().equals(Quiz.correctAnswer[currentQuestion])) {
+                    answer3.setBackgroundColor(Color.GREEN);
+                }
+            }
+            //resetButtonColor();
+            //currentQuestion++;
+            //handleQuiz();
         } else {
             //choices button clicked
             selectedAnswer = clickedButton.getText().toString();
-            clickedButton.setBackgroundColor(Color.MAGENTA);
+            clickedButton.setBackgroundColor(Color.LTGRAY);
+            previousClickedButton = clickedButton;
         }
     }
 
+    private void resetButtonColor(){
+        answer1.setBackgroundColor(Color.WHITE);
+        answer2.setBackgroundColor(Color.WHITE);
+        answer3.setBackgroundColor(Color.WHITE);
+    }
     private void handleQuiz() {
+        if(currentQuestion == totalQuestions ){
+            quizFinished();
+            return;
+        }
+
         questionHeader.setText(Quiz.question[currentQuestion]);
         answer1.setText(Quiz.choices[currentQuestion][0]);
         answer2.setText(Quiz.choices[currentQuestion][1]);
         answer3.setText(Quiz.choices[currentQuestion][2]);
+    }
+
+    void quizFinished(){
+
     }
 
 }
