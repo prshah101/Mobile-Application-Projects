@@ -29,7 +29,9 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minWidth="30dip"
         android:paddingTop="10dp"
+        android:scaleY="4"
         android:paddingBottom="10dp" />
 
     <androidx.cardview.widget.CardView

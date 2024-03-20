@@ -21,7 +21,7 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
     TextView questionNumber;
     String selectedAnswer = "";
     TextView totalScore;
-    int totalQuestions = 5;
+    int totalQuestions = Quiz.question.length;
     Button previousClickedButton = null;
     TextView userName;
     RadioGroup radioGroup;
@@ -57,7 +57,6 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
         String name = getIntent().getStringExtra("userName");
         //To display the correct name
         userName.setText("Welcome " + User.getInstance().getName());
-        //questionNumber.setText((currentQuestion + 1)/totalQuestions);
         //totalScore.setText("Score " + score);
 
         // Set OnClickListener
@@ -122,6 +121,15 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
         answer3.setBackgroundColor(Color.WHITE);
     }
     private void handleQuiz() {
+        // Update the question number on the screen
+        questionNumber.setText((currentQuestion + 1) + "/" + totalQuestions);
+
+        // Calculate progress percentage
+        int progress = (int) (((float) (currentQuestion) / totalQuestions) * 100);
+
+        // Set the progress bar
+        progressBar.setProgress(progress);
+
         if(currentQuestion == totalQuestions ){
             quizFinished();
             return;
