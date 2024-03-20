@@ -40,14 +40,14 @@
 
     <Button
         android:id="@+id/submitBtn"
-        android:onClick="onStartButtonClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:layout_marginBottom="0dp"
         android:layout_weight="0"
         android:gravity="center_vertical|center_horizontal"
+        android:onClick="onStartButtonClick"
         android:paddingTop="0dp"
-        android:text="Submit"
+        android:text="Start"
         android:textSize="20sp" />
 </LinearLayout>

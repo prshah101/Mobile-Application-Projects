@@ -30,19 +30,17 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
     int score = 0;
     ProgressBar progressBar;
     int currentQuestion = 0;
-    //Quiz quiz;
 
     Button nextButton;
-
+    Button submitButton;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        //quiz = Quiz.getInstance();
 
         questionHeader = findViewById(R.id.question);
-        totalScore = findViewById(R.id.score);
+        //totalScore = findViewById(R.id.score);
 
         answer1 = findViewById(R.id.option1);
         answer2 = findViewById(R.id.option2);
@@ -50,6 +48,7 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
         progressBar = findViewById(R.id.progressBar);
         questionNumber = findViewById(R.id.questionNumber);
         nextButton = findViewById(R.id.nextBtn);
+        submitButton = findViewById(R.id.submitBtn);
         userName = findViewById(R.id.username);
 
         radioGroup = findViewById(R.id.radioGroup);
@@ -58,13 +57,16 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
         String name = getIntent().getStringExtra("userName");
         //To display the correct name
         userName.setText("Welcome " + User.getInstance().getName());
-        totalScore.setText("Score " + score);
+        //questionNumber.setText((currentQuestion + 1)/totalQuestions);
+        //totalScore.setText("Score " + score);
 
         // Set OnClickListener
         nextButton.setOnClickListener(this);
+        submitButton.setOnClickListener(this);
         answer1.setOnClickListener(this);
         answer2.setOnClickListener(this);
         answer3.setOnClickListener(this);
+        nextButton.setVisibility(View.INVISIBLE);
 
 
         handleQuiz();
@@ -79,12 +81,11 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
 
         Button clickedButton = (Button) view;
 
-        if (clickedButton.getId() == R.id.nextBtn) {  // Logic for handling "Next" button click
-            if(selectedAnswer.equals(Quiz.correctAnswer[currentQuestion])){
+        if (clickedButton.getId() == R.id.submitBtn) {  // Logic for handling "Next" button click
+            if (selectedAnswer.equals(Quiz.correctAnswer[currentQuestion])) {
                 score++;
                 previousClickedButton.setBackgroundColor(Color.GREEN);
-            }
-            else{
+            } else {
                 previousClickedButton.setBackgroundColor(Color.RED);
                 // Set the correct answer button to green//To indicate correct answer
                 if (answer1.getText().toString().equals(Quiz.correctAnswer[currentQuestion])) {
@@ -95,16 +96,25 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
                     answer3.setBackgroundColor(Color.GREEN);
                 }
             }
-            //resetButtonColor();
-            //currentQuestion++;
-            //handleQuiz();
-        } else {
+
+            // Hide submit button, show next button
+            submitButton.setVisibility(View.INVISIBLE);
+            nextButton.setVisibility(View.VISIBLE);
+        }else if (clickedButton.getId() == R.id.nextBtn) {
+        // Logic for handling "Next" button click
+        currentQuestion++;
+        handleQuiz();
+        // Hide next button again
+        nextButton.setVisibility(View.INVISIBLE);
+        submitButton.setVisibility(View.VISIBLE);
+        }else {
             //choices button clicked
             selectedAnswer = clickedButton.getText().toString();
             clickedButton.setBackgroundColor(Color.LTGRAY);
             previousClickedButton = clickedButton;
         }
     }
+
 
     private void resetButtonColor(){
         answer1.setBackgroundColor(Color.WHITE);
