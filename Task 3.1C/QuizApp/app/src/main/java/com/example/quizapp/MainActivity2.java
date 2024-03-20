@@ -2,6 +2,7 @@ package com.example.quizapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +13,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity  implements View.OnClickListener{
     TextView questionHeader;
     TextView answer1;
     TextView answer2;
     TextView answer3;
     TextView questionNumber;
+    String selectedAnswer = "";
     TextView totalScore;
+    int totalQuestions = 5;
     TextView userName;
     RadioGroup radioGroup;
     CardView questionsCardView;
@@ -26,7 +29,7 @@ public class MainActivity2 extends AppCompatActivity {
     int score = 0;
     ProgressBar progressBar;
     int currentQuestion = 0;
-    Quiz quiz;
+    //Quiz quiz;
 
     Button nextButton;
 
@@ -35,7 +38,7 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        quiz = Quiz.getInstance();
+        //quiz = Quiz.getInstance();
 
         questionHeader = findViewById(R.id.question);
         totalScore = findViewById(R.id.score);
@@ -55,35 +58,40 @@ public class MainActivity2 extends AppCompatActivity {
         //To display the correct name
         userName.setText("Welcome " + User.getInstance().getName());
 
+        // Set OnClickListener
+        nextButton.setOnClickListener(this);
+        answer1.setOnClickListener(this);
+        answer2.setOnClickListener(this);
+        answer3.setOnClickListener(this);
+
 
         handleQuiz();
     }
 
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onClick(View view) {
+
+        Button clickedButton = (Button) view;
+
+        if (clickedButton.getId() == R.id.nextBtn) {
+            if(selectedAnswer.equals(Quiz.correctAnswer[currentQuestion])){
+                score++;
+            }
+            currentQuestion++;
+            handleQuiz();
+        } else {
+            //choices button clicked
+            selectedAnswer = clickedButton.getText().toString();
+            clickedButton.setBackgroundColor(Color.MAGENTA);
+        }
+    }
+
     private void handleQuiz() {
-        displayQuestion(quiz); //1 of 5
-    }
-
-    public void onStartButtonClick(View view) {
-        changeQuestion(quiz);
-        currentQuestion++;
-        displayQuestion(quiz); //2 of 5
-    }
-
-    private void changeQuestion(Quiz quiz) {
-        // Change the question, answers, and correct answer dynamically
-        quiz.setQuestion("What is the capital of France?");
-        quiz.setAnswers(new String[]{"London", "Paris", "Berlin"});
-        quiz.setCorrectAnswer(1);
-    }
-
-    private void displayQuestion(Quiz quiz) {
-        // Display the current question
-        questionHeader.setText( quiz.getQuestion());
-        // Display the answer options
-        String[] answers = quiz.getAnswers();
-        answer1.setText(answers[0]);
-        answer2.setText(answers[1]);
-        answer3.setText(answers[2]);
+        questionHeader.setText(Quiz.question[currentQuestion]);
+        answer1.setText(Quiz.choices[currentQuestion][0]);
+        answer2.setText(Quiz.choices[currentQuestion][1]);
+        answer3.setText(Quiz.choices[currentQuestion][2]);
     }
 
 }
