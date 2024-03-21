@@ -30,16 +30,18 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        //Get a User Instance and set it to the Username inputed by the User
         User user = User.getInstance();
         user.setName(userName.getText().toString());
 
-        // Logic here
+        // This method starts the MainActivity2.java
         startMainActivity2();
     }
 
     private void startMainActivity2() {
         Intent intent = new Intent(this, MainActivity2.class);
-        intent.putExtra("userName", userName.getText().toString()); // pass the user name to the next activity
+        // pass the user name to the next activity
+        intent.putExtra("userName", userName.getText().toString());
         startActivity(intent);
     }
 }
