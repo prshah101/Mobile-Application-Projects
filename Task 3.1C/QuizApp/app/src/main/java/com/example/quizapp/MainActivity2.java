@@ -80,6 +80,8 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
         answer1.setOnClickListener(this);
         answer2.setOnClickListener(this);
         answer3.setOnClickListener(this);
+        restartButton.setOnClickListener(this);
+        finishButton.setOnClickListener(this);
         nextButton.setVisibility(View.INVISIBLE);
 
 
@@ -172,7 +174,6 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
 
     void quizFinished(){
         LinearLayout layout = findViewById(R.id.layoutID);
-
         for (int i = 0; i < layout.getChildCount(); i++) {
             View child = layout.getChildAt(i);
             child.setVisibility(View.GONE);
@@ -184,6 +185,19 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
     void restartQuiz(){
         score = 0;
         currentQuestion =0;
+
+        LinearLayout layout = findViewById(R.id.layoutID);
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            View child = layout.getChildAt(i);
+            child.setVisibility(View.VISIBLE);
+        }
+
+        restartButton.setVisibility(View.GONE);
+        finishButton.setVisibility(View.GONE);
+        congratulationView.setVisibility(View.GONE);
+        scoreView.setVisibility(View.GONE);
+        numericScoreView.setVisibility(View.GONE);
+
         handleQuiz();
     }
 
