@@ -123,6 +123,9 @@
         android:layout_height="60dp"
         android:layout_marginBottom="30dp"
         android:text="Take New Quiz"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:textSize="30dp" />
 
     <Button
@@ -130,6 +133,9 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginBottom="-70dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:text="Finish"
         android:textSize="30dp" />
 

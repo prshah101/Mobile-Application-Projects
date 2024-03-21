@@ -114,14 +114,14 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
             // Hide submit button, show next button
             submitButton.setVisibility(View.INVISIBLE);
             nextButton.setVisibility(View.VISIBLE);
-        }else if (clickedButton.getId() == R.id.nextBtn) {
-        // Logic for handling "Next" button click
-        currentQuestion++;
-        handleQuiz();
-        // Hide next button again
-        nextButton.setVisibility(View.INVISIBLE);
-        submitButton.setVisibility(View.VISIBLE);
-            if(currentQuestion == totalQuestions ) { //After handleQuiz for the final time, help remove all elements
+        } else if (clickedButton.getId() == R.id.nextBtn) {
+            // Logic for handling "Next" button click
+            currentQuestion++;
+            handleQuiz();
+            // Hide next button again
+            nextButton.setVisibility(View.INVISIBLE);
+            submitButton.setVisibility(View.VISIBLE);
+            if (currentQuestion == totalQuestions) { //After handleQuiz for the final time, help remove all elements
                 submitButton.setVisibility(View.GONE);
                 nextButton.setVisibility(View.GONE);
                 congratulationView.setVisibility(View.VISIBLE);
@@ -131,6 +131,10 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
                 numericScoreView.setVisibility(View.VISIBLE);
                 numericScoreView.setText(score + "/" + totalQuestions);
             }
+        }else if (clickedButton.getId() == R.id.restartBtn){
+            restartQuiz();
+        }else if (clickedButton.getId() == R.id.finishBtn){
+            finish();
         }else {
             //choices button clicked
             selectedAnswer = clickedButton.getText().toString();
