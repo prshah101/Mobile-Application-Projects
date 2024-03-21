@@ -23,7 +23,6 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
     TextView answer3;
     TextView questionNumber;
     String selectedAnswer = "";
-    TextView totalScore;
     int totalQuestions = Quiz.question.length;
     Button previousClickedButton = null;
     TextView userName;
@@ -71,8 +70,7 @@ public class MainActivity2 extends AppCompatActivity  implements View.OnClickLis
         scoreView.setVisibility(View.GONE);
         numericScoreView.setVisibility(View.GONE);
 
-        String name = getIntent().getStringExtra("userName");
-        //To display the correct name
+        //Use User class to display the correct name
         userName.setText("Welcome " + User.getInstance().getName());
 
 
