@@ -41,7 +41,7 @@
         android:scaleY="4" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="382dp"
+        android:layout_width="385dp"
         android:layout_height="42dp"
         android:gravity="center_horizontal|center_vertical"
         app:cardBackgroundColor="#FFFFFF">
@@ -49,15 +49,15 @@
         <TextView
             android:id="@+id/question"
             android:layout_width="382dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
             android:text="Question"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/optionCard"
-        android:layout_width="382dp"
+        android:layout_width="385dp"
         android:layout_height="372dp"
         android:layout_marginBottom="20dp"
         android:gravity="center_horizontal|center_vertical"
