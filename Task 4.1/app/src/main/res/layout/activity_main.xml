@@ -35,6 +35,11 @@
                 android:paddingTop="100dp"
                 android:text="No Tasks Available"
                 android:textSize="30dp" />
+
+            <ListView
+                android:id="@+id/todolist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
 
         <Button
