@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -29,7 +30,8 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
         //EditText taskTitleEditText = findViewById(R.id.taskTitle);
         EditText dueDateEditText = findViewById(R.id.dueDate);
         //EditText descriptionEditText = findViewById(R.id.description);
-        taskTitleEditText = findViewById(R.id.taskTitle);;
+        taskTitleEditText = findViewById(R.id.taskTitle);
+        ;
         descriptionEditText = findViewById(R.id.description);
         Button editSaveBtn = findViewById(R.id.editSaveBtn);
         Button deleteTaskBtn = findViewById(R.id.deleteTaskBtn);
@@ -55,20 +57,21 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Button clickedButton = (Button) view;
         boolean itemSelected = getIntent().getBooleanExtra("itemSelected", false);
+
         if (clickedButton.getId() == R.id.editSaveBtn && !itemSelected) {
 
             try {
                 // Attempt to create a ToDoItem
                 ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
-                // If successful, display the ToDoItem using a toast message
-                //Toast.makeText(TaskActivity.this, todoItem.toString(), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(TaskActivity.this, todoItem.toString(), Toast.LENGTH_SHORT).show();
-
                 DatabaseHelper dataBaseHelper = new DatabaseHelper(TaskActivity.this);
 
                 boolean success = dataBaseHelper.addOne(todoItem);
-                //Toast.makeText(TaskActivity.this, "Sucess" + success, Toast.LENGTH_SHORT).show();
 
+                if (success) {
+                    Toast.makeText(TaskActivity.this, "Task added successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(TaskActivity.this, "Failed to add task", Toast.LENGTH_SHORT).show();
+                }
 
                 changeViewToMainActivity();
 
@@ -77,31 +80,48 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(TaskActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         } else if (clickedButton.getId() == R.id.editSaveBtn && itemSelected) {
+            try {
+                // Attempt to create a ToDoItem
+                ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
+                DatabaseHelper dataBaseHelper = new DatabaseHelper(TaskActivity.this);
 
-            
+                boolean success = dataBaseHelper.updateOne(todoItem);
+                if (success) {
+                    Toast.makeText(TaskActivity.this, "Task updated successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(TaskActivity.this, "Failed to update task", Toast.LENGTH_SHORT).show();
+                }
+                changeViewToMainActivity();
 
-            changeViewToMainActivity();
+            } catch (Exception e) {
+                // If an exception occurs, handle it here
+                Toast.makeText(TaskActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         } else if (clickedButton.getId() == R.id.backBtn) {
             changeViewToMainActivity();
         } else if (clickedButton.getId() == R.id.deleteTaskBtn) {
-            // Create an instance of DatabaseHelper
-            DatabaseHelper databaseHelper = new DatabaseHelper(TaskActivity.this);
+            try {
+                // Create an instance of DatabaseHelper
+                DatabaseHelper databaseHelper = new DatabaseHelper(TaskActivity.this);
 
-            //Toast.makeText(TaskActivity.this, taskTitleEditText.getText().toString(), Toast.LENGTH_SHORT).show();
-            // Create a ToDoItem object
-            ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
+                // Create a ToDoItem object
+                ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
 
-            // Attempt to delete the ToDoItem
-            boolean success = databaseHelper.deleteOne(todoItem);
+                // Attempt to delete the ToDoItem
+                boolean success = databaseHelper.deleteOne(todoItem);
 
-            if (success) {
-                Toast.makeText(TaskActivity.this, "Task deleted successfully", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(TaskActivity.this, "Failed to delete task", Toast.LENGTH_SHORT).show();
+                if (success) {
+                    Toast.makeText(TaskActivity.this, "Task deleted successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(TaskActivity.this, "Failed to delete task", Toast.LENGTH_SHORT).show();
+                }
+
+                // Change the view to MainActivity
+                changeViewToMainActivity();
+            } catch (Exception e) {
+                // If an exception occurs, handle it here
+                Toast.makeText(TaskActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-            // Change the view to MainActivity
-            changeViewToMainActivity();
         }
 
     }

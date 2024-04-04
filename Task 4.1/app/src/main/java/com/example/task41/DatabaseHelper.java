@@ -48,6 +48,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean updateOne(ToDoItem todoItem) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_TITLE, todoItem.getTitle());
+        cv.put(COLUMN_DESCRIPTION, todoItem.getDescription());
+
+        // Specify the WHERE clause to update the specific record based on the title
+        String selection = COLUMN_TITLE + " = ?";
+        String[] selectionArgs = {todoItem.getTitle()};
+
+        int updatedRows = db.update(TASK_TABLE, cv, selection, selectionArgs);
+
+        // Check if any rows were updated
+        if (updatedRows == 0) {
+            return false; // No rows were updated, so return false
+        } else {
+            return true; // At least one row was updated, so return true
+        }
+    }
+
     public boolean deleteOne(ToDoItem todoItem) {
         // find ToDoItem in the database. if it is found, delete it and return true.
         // if it is not found, return false
