@@ -5,11 +5,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -111,6 +118,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // close both the cursor and the db when done.
         cursor.close();
         db.close();
+
+        // Sort the list by due date
+        // Sort the list by due date
+        Collections.sort(returnList, new Comparator<ToDoItem>() {
+            @Override
+            public int compare(ToDoItem item1, ToDoItem item2) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault());
+                try {
+                    Date dueDate1 = dateFormat.parse(item1.getDueDate());
+                    Date dueDate2 = dateFormat.parse(item2.getDueDate());
+                    return dueDate1.compareTo(dueDate2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0; // Return 0 if there's a parsing error
+                }
+            }
+        });
 
         return returnList;
     }
