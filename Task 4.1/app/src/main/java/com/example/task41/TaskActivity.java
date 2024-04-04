@@ -54,10 +54,9 @@ public class TaskActivity extends AppCompatActivity  implements DatePickerDialog
         dueDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Please note that use your package name here//
                 // Display the date picker dialog
-                tutorials.droid.datepicker.DatePicker mDatePickerDialogFragment;
-                mDatePickerDialogFragment = new tutorials.droid.datepicker.DatePicker();
+                com.example.task41.DatePicker mDatePickerDialogFragment;
+                mDatePickerDialogFragment = new com.example.task41.DatePicker();
                 mDatePickerDialogFragment.show(getSupportFragmentManager(), "DATE PICK");
             }
         });
