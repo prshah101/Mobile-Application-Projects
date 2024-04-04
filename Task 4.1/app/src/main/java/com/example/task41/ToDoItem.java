@@ -1,12 +1,15 @@
 package com.example.task41;
 
 public class ToDoItem {
-    private static String title;
-    private static String description;
+    private String title;
+    private String description;
 
     public ToDoItem(String title, String description) {
         this.title = title;
         this.description = description;
+    }
+
+    public ToDoItem() {
     }
 
     @Override
@@ -17,7 +20,7 @@ public class ToDoItem {
                 '}';
     }
 
-    public static String getTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -25,7 +28,7 @@ public class ToDoItem {
         this.title = title;
     }
 
-    public static String getDescription() {
+    public String getDescription() {
         return description;
     }
 

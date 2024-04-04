@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView RecyclerViewMain;
     DatabaseHelper dbHelper;
 
-    ArrayAdapter<ToDoItem> customerArrayAdapter;
+    //ArrayAdapter<ToDoItem> taskArrayAdapter;
 
 
     @Override
@@ -72,9 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Initialize Database Helper
         DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
 
-        //Toast.makeText(MainActivity.this, everyone.toString(), Toast.LENGTH_SHORT).show();
-        customerArrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, dataBaseHelper.getAll());
-        todolist.setAdapter(customerArrayAdapter);
+        //Toast.makeText(MainActivity.this, dataBaseHelper.getAll().toString(), Toast.LENGTH_SHORT).show();
+        List<ToDoItem> tasks = dataBaseHelper.getAll();
+        ArrayAdapter<ToDoItem> taskArrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, tasks);
+        todolist.setAdapter(taskArrayAdapter);
     }
 
     // Set click listener for addTaskBtn if needed

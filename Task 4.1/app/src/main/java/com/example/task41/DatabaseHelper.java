@@ -37,8 +37,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_TITLE, ToDoItem.getTitle());
-        cv.put(COLUMN_DESCRIPTION, ToDoItem.getDescription());
+        cv.put(COLUMN_TITLE, todoItem.getTitle());
+        cv.put(COLUMN_DESCRIPTION, todoItem.getDescription());
 
         long insert = db.insert(TASK_TABLE, null, cv);
         if (insert == -1) {
