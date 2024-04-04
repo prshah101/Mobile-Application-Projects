@@ -81,6 +81,12 @@ public class TaskActivity extends AppCompatActivity  implements DatePickerDialog
 
         //If editSaveBtn is pressed, and a existing ToDoItem wasn't selected, add a new ToDoItem to the database
         if (clickedButton.getId() == R.id.editSaveBtn && !itemSelected) {
+            // Check if the task title is empty, because this is a required field
+            if (taskTitleEditText.getText().toString().trim().isEmpty()) {
+                // Show an error message indicating that the task title is compulsory
+                Toast.makeText(TaskActivity.this, "Couldn't Save Details: Please provide a title for the Task", Toast.LENGTH_SHORT).show();
+                return; // Exit the method to prevent further execution
+            }
 
             try {
                 // Create a ToDoItem instance accessible in this class (not the database yet)
