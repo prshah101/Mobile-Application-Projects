@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -30,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView RecyclerViewMain;
     DatabaseHelper dbHelper;
 
-    //ArrayAdapter<ToDoItem> taskArrayAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //RecyclerViewMain = findViewById(R.id.RecyclerView);
         DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
 
-        todolist = findViewById(R.id.todolist);
-
+        //todolist = findViewById(R.id.todolist);
+        // Find RecyclerView in layout
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
         // Example task details
 
@@ -55,37 +55,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Set OnClickListener for the button
         addTaskBtn.setOnClickListener(this);
-
-        todolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Get the selected item from the adapter
-                ToDoItem selectedItem = (ToDoItem) parent.getItemAtPosition(position);
-
-                Intent intent = new Intent(MainActivity.this, TaskActivity.class);
-
-                // Put the selected item's value as an extra in the intent
-                intent.putExtra("selectedItemTitle", selectedItem.getTitle());
-                intent.putExtra("selectedItemDescription", selectedItem.getDescription());
-                intent.putExtra("selectedItemDueDate", selectedItem.getDueDate());
-                intent.putExtra("itemSelected", true);
-
-                startActivity(intent);
-
-
-            }
-        });
-
     }
 
     private void ShowTasksOnListView() {
         // Initialize Database Helper
         DatabaseHelper dataBaseHelper = new DatabaseHelper(MainActivity.this);
 
-        //Toast.makeText(MainActivity.this, dataBaseHelper.getAll().toString(), Toast.LENGTH_SHORT).show();
         List<ToDoItem> tasks = dataBaseHelper.getAll();
-        ArrayAdapter<ToDoItem> taskArrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, tasks);
-        todolist.setAdapter(taskArrayAdapter);
+
+        // Find RecyclerView in layout
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+
+        VerticalAdapter adapter = new VerticalAdapter(tasks, new onItemClickListener() {
+            @Override
+            public void itemClick(ToDoItem task) {
+                Intent intent = new Intent(MainActivity.this, TaskActivity.class);
+                intent.putExtra("selectedItemTitle", task.getTitle());
+                intent.putExtra("selectedItemDescription", task.getDescription());
+                intent.putExtra("selectedItemDueDate", task.getDueDate());
+                intent.putExtra("itemSelected", true);
+                startActivity(intent);
+            }
+        });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
     // Set click listener for addTaskBtn if needed
@@ -93,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Button clickedButton = (Button) view;
 
-        if (clickedButton.getId() == R.id.addTaskBtn){
+        if (clickedButton.getId() == R.id.addTaskBtn) {
             Intent intent = new Intent(this, TaskActivity.class);
             startActivity(intent);
         }

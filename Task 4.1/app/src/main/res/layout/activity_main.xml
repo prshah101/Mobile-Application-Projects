@@ -27,6 +27,12 @@
             android:layout_height="545dp"
             android:layout_marginBottom="20dp">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#9C27B0" />
+
             <TextView
                 android:id="@+id/noTasksWarning"
                 android:layout_width="match_parent"
@@ -36,10 +42,6 @@
                 android:text="No Tasks Available"
                 android:textSize="30dp" />
 
-            <ListView
-                android:id="@+id/todolist"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
 
         <Button
