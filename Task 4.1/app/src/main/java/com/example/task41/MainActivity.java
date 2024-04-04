@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Put the selected item's value as an extra in the intent
                 intent.putExtra("selectedItemTitle", selectedItem.getTitle());
                 intent.putExtra("selectedItemDescription", selectedItem.getDescription());
+                intent.putExtra("selectedItemDueDate", selectedItem.getDueDate());
                 intent.putExtra("itemSelected", true);
 
                 startActivity(intent);

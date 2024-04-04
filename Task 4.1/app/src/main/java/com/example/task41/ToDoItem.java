@@ -3,10 +3,12 @@ package com.example.task41;
 public class ToDoItem {
     private String title;
     private String description;
+    private String dueDate; // Add a date variable
 
-    public ToDoItem(String title, String description) {
+    public ToDoItem(String title, String description, String dueDate) {
         this.title = title;
         this.description = description;
+        this.dueDate = dueDate; // Initialize the date variable
     }
 
     public ToDoItem() {
@@ -17,6 +19,7 @@ public class ToDoItem {
         return "ToDoItem{" +
                 "title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", dueDate='" + dueDate + '\'' + // Include the date variable in the toString method
                 '}';
     }
 
@@ -34,5 +37,13 @@ public class ToDoItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 }

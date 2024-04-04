@@ -16,6 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TASK_TABLE = "TASK_TABLE";
     public static final String COLUMN_TITLE = "TITLE";
     public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
+    public static final String COLUMN_DUEDATE = "DUEDATE";
     public static final String COLUMN_ID = "ID";
 
     public DatabaseHelper(@Nullable Context context) {
@@ -24,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + TASK_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DESCRIPTION + " TEXT)";
+        String createTableStatement = "CREATE TABLE " + TASK_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_DUEDATE + " TEXT)";
         db.execSQL(createTableStatement);
     }
 
@@ -39,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_TITLE, todoItem.getTitle());
         cv.put(COLUMN_DESCRIPTION, todoItem.getDescription());
+        cv.put(COLUMN_DUEDATE, todoItem.getDueDate());
 
         long insert = db.insert(TASK_TABLE, null, cv);
         if (insert == -1) {
@@ -97,9 +99,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 String taskTitle = cursor.getString(1);
                 String taskDescription = cursor.getString(2);
+                String taskDueDate = cursor.getString(3);
 
-
-                ToDoItem todoItem = new ToDoItem(taskTitle, taskDescription);
+                ToDoItem todoItem = new ToDoItem(taskTitle, taskDescription, taskDueDate);
                 returnList.add(todoItem);
             } while (cursor.moveToNext());
         } else {

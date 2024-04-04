@@ -1,10 +1,12 @@
 package com.example.task41;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,9 +19,17 @@ import androidx.core.view.WindowInsetsCompat;
 import android.content.Intent;
 import android.widget.Toast;
 
-public class TaskActivity extends AppCompatActivity implements View.OnClickListener {
+import java.text.BreakIterator;
+import java.text.DateFormat;
+import java.util.Calendar;
+
+public class TaskActivity extends AppCompatActivity  implements DatePickerDialog.OnDateSetListener, View.OnClickListener {
     EditText taskTitleEditText;
     EditText descriptionEditText;
+
+    TextView dueDateText;
+
+    Button dueDateButton;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +37,11 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.taskdetails); // Replace "your_layout" with the actual name of your XML layout file
 
         // Accessing the EditText fields and buttons
-        //EditText taskTitleEditText = findViewById(R.id.taskTitle);
-        EditText dueDateEditText = findViewById(R.id.dueDate);
-        //EditText descriptionEditText = findViewById(R.id.description);
+        dueDateButton = findViewById(R.id.dueDateButton);
+        dueDateText = findViewById(R.id.dueDateText);
+        dueDateText.setVisibility(View.GONE);
+
         taskTitleEditText = findViewById(R.id.taskTitle);
-        ;
         descriptionEditText = findViewById(R.id.description);
         Button editSaveBtn = findViewById(R.id.editSaveBtn);
         Button deleteTaskBtn = findViewById(R.id.deleteTaskBtn);
@@ -49,8 +59,26 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
         editSaveBtn.setOnClickListener(this);
         deleteTaskBtn.setOnClickListener(this);
         backtoMainBtn.setOnClickListener(this);
+        dueDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Please note that use your package name here
+                tutorials.droid.datepicker.DatePicker mDatePickerDialogFragment;
+                mDatePickerDialogFragment = new tutorials.droid.datepicker.DatePicker();
+                mDatePickerDialogFragment.show(getSupportFragmentManager(), "DATE PICK");
+            }
+        });
 
+    }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar mCalendar = Calendar.getInstance();
+        mCalendar.set(Calendar.YEAR, year);
+        mCalendar.set(Calendar.MONTH, month);
+        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(mCalendar.getTime());
+        dueDateText.setText(selectedDate);
     }
 
     @Override
@@ -62,7 +90,7 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
 
             try {
                 // Attempt to create a ToDoItem
-                ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
+                ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString(), dueDateText.getText().toString());
                 DatabaseHelper dataBaseHelper = new DatabaseHelper(TaskActivity.this);
 
                 boolean success = dataBaseHelper.addOne(todoItem);
@@ -82,7 +110,7 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
         } else if (clickedButton.getId() == R.id.editSaveBtn && itemSelected) {
             try {
                 // Attempt to create a ToDoItem
-                ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
+                ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString(), dueDateText.getText().toString());
                 DatabaseHelper dataBaseHelper = new DatabaseHelper(TaskActivity.this);
 
                 boolean success = dataBaseHelper.updateOne(todoItem);
@@ -105,7 +133,7 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
                 DatabaseHelper databaseHelper = new DatabaseHelper(TaskActivity.this);
 
                 // Create a ToDoItem object
-                ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
+                ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString(), dueDateText.getText().toString());
 
                 // Attempt to delete the ToDoItem
                 boolean success = databaseHelper.deleteOne(todoItem);
