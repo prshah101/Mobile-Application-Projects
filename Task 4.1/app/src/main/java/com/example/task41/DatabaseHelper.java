@@ -63,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_TITLE, todoItem.getTitle());
         cv.put(COLUMN_DESCRIPTION, todoItem.getDescription());
+        cv.put(COLUMN_DUEDATE, todoItem.getDueDate());
 
         // Specify the WHERE clause to update the specific record based on the title
         String selection = COLUMN_TITLE + " = ?";
