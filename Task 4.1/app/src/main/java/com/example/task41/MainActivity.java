@@ -80,6 +80,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        // Toggle visibility of noTasksWarningTextView
+        if (tasks.isEmpty()) {
+            noTasksWarningTextView.setVisibility(View.VISIBLE);
+        } else {
+            noTasksWarningTextView.setVisibility(View.GONE);
+        }
     }
 
     // Set click listener for addTaskBtn if needed

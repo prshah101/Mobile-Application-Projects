@@ -120,7 +120,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         // Sort the list by due date
-        // Sort the list by due date
         Collections.sort(returnList, new Comparator<ToDoItem>() {
             @Override
             public int compare(ToDoItem item1, ToDoItem item2) {

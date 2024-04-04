@@ -39,7 +39,6 @@ public class TaskActivity extends AppCompatActivity  implements DatePickerDialog
         // Accessing the EditText fields and buttons
         dueDateButton = findViewById(R.id.dueDateButton);
         dueDateText = findViewById(R.id.dueDateText);
-        dueDateText.setVisibility(View.GONE);
 
         taskTitleEditText = findViewById(R.id.taskTitle);
         descriptionEditText = findViewById(R.id.description);

@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
 
     <EditText
         android:id="@+id/taskTitle"
@@ -14,25 +15,36 @@
         android:ems="10"
         android:gravity="center_horizontal"
         android:inputType="text"
-        android:text="Task Title"
-        android:textSize="40dp" />
+        android:text="@string/task_title"
+        android:textSize="30sp"
+        android:hint="@string/enter_task_s_title_here"/>
 
-    <Button
-        android:id="@+id/dueDateButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#3E2270"
-        android:text="Select Due Date"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-
-
-    <TextView
-        android:id="@+id/dueDateText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="dueDateText" />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/dueDateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#3E2270"
+            android:text="Select Due Date"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/dueDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Due Date "
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="300dp"
@@ -42,20 +54,21 @@
 
         <EditText
             android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Description"
-            android:textSize="20dp" />
+            android:inputType="textMultiLine"
+            android:text="@string/description"
+            android:textSize="20sp"
+            android:hint="@string/enter_task_s_description_here"/>
+
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom= "true">
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/editSaveBtn"
