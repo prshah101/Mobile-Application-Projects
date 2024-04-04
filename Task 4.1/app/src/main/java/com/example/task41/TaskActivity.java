@@ -19,6 +19,8 @@ import android.widget.Toast;
 public class TaskActivity extends AppCompatActivity implements View.OnClickListener {
     EditText taskTitleEditText;
     EditText descriptionEditText;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskdetails); // Replace "your_layout" with the actual name of your XML layout file
@@ -33,42 +35,59 @@ public class TaskActivity extends AppCompatActivity implements View.OnClickListe
         Button deleteTaskBtn = findViewById(R.id.deleteTaskBtn);
         Button backtoMainBtn = findViewById(R.id.backBtn);
 
+        // Retrieve the value passed from MainActivity
+        String selectedItemTitle = getIntent().getStringExtra("selectedItemTitle");
+        String selectedItemDescription = getIntent().getStringExtra("selectedItemDescription");
+
+
+        taskTitleEditText.setText(selectedItemTitle);
+        descriptionEditText.setText(selectedItemDescription);
+
         // Set OnClickListener for the button
         editSaveBtn.setOnClickListener(this);
         deleteTaskBtn.setOnClickListener(this);
         backtoMainBtn.setOnClickListener(this);
+
+
     }
 
     @Override
     public void onClick(View view) {
         Button clickedButton = (Button) view;
-        if (clickedButton.getId() == R.id.editSaveBtn) {
+        boolean itemSelected = getIntent().getBooleanExtra("itemSelected", false);
+        if (clickedButton.getId() == R.id.editSaveBtn && !itemSelected) {
 
             try {
                 // Attempt to create a ToDoItem
                 ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
                 // If successful, display the ToDoItem using a toast message
-                Toast.makeText(TaskActivity.this, todoItem.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(TaskActivity.this, todoItem.toString(), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(TaskActivity.this, todoItem.toString(), Toast.LENGTH_SHORT).show();
 
-//                DatabaseHelper dataBaseHelper = new DatabaseHelper(TaskActivity.this);
-//
-//                boolean success = dataBaseHelper.addOne(todoItem);
-//                Toast.makeText(TaskActivity.this, "Sucess" + success, Toast.LENGTH_SHORT).show();
+                DatabaseHelper dataBaseHelper = new DatabaseHelper(TaskActivity.this);
+
+                boolean success = dataBaseHelper.addOne(todoItem);
+                //Toast.makeText(TaskActivity.this, "Sucess" + success, Toast.LENGTH_SHORT).show();
 
 
-                //changeViewToMainActivity();
+                changeViewToMainActivity();
 
             } catch (Exception e) {
                 // If an exception occurs, handle it here
                 Toast.makeText(TaskActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+        } else if (clickedButton.getId() == R.id.editSaveBtn && itemSelected) {
+
+            
+
+            changeViewToMainActivity();
         } else if (clickedButton.getId() == R.id.backBtn) {
             changeViewToMainActivity();
         } else if (clickedButton.getId() == R.id.deleteTaskBtn) {
             // Create an instance of DatabaseHelper
             DatabaseHelper databaseHelper = new DatabaseHelper(TaskActivity.this);
 
+            //Toast.makeText(TaskActivity.this, taskTitleEditText.getText().toString(), Toast.LENGTH_SHORT).show();
             // Create a ToDoItem object
             ToDoItem todoItem = new ToDoItem(taskTitleEditText.getText().toString(), descriptionEditText.getText().toString());
 

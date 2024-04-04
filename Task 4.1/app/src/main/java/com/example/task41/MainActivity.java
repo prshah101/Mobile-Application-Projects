@@ -59,10 +59,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         todolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ToDoItem clickedTask = (ToDoItem) parent.getItemAtPosition(position);
-                dataBaseHelper.deleteOne(clickedTask);
-                ShowTasksOnListView();
-                Toast.makeText(MainActivity.this, "Deleted " + clickedTask.toString(), Toast.LENGTH_SHORT).show();
+                // Get the selected item from the adapter
+                ToDoItem selectedItem = (ToDoItem) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(MainActivity.this, TaskActivity.class);
+
+                // Put the selected item's value as an extra in the intent
+                intent.putExtra("selectedItemTitle", selectedItem.getTitle());
+                intent.putExtra("selectedItemDescription", selectedItem.getDescription());
+                intent.putExtra("itemSelected", true);
+
+                startActivity(intent);
+
+
             }
         });
 

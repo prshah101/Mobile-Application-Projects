@@ -53,16 +53,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // if it is not found, return false
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM " + TASK_TABLE + " WHERE " + COLUMN_TITLE + " = " + todoItem.getTitle();
+        String whereClause = COLUMN_TITLE + " = ?";
+        String[] whereArgs = { todoItem.getTitle() };
 
-        Cursor cursor = db.rawQuery(queryString, null);
+        int rowsAffected = db.delete(TASK_TABLE, whereClause, whereArgs);
 
-        if (cursor.moveToFirst()) {
-            return true;
-        } else {
-            return false;
-        }
+        return rowsAffected > 0;
     }
+
 
     public List<ToDoItem> getAll() {
         List<ToDoItem> returnList = new ArrayList<>();
