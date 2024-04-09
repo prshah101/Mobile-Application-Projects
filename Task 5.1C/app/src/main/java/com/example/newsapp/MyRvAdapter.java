@@ -14,10 +14,11 @@ import android.widget.TextView;
 
 
 class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyHolder> {
-    ArrayList<String> data;
-
-    public MyRvAdapter(ArrayList<String> data) {
-        this.data = data;
+    ArrayList<String> titles;
+    ArrayList<Integer> imageResourceIds;
+    public MyRvAdapter(ArrayList<String> titles, ArrayList<Integer> imageResourceIds) {
+        this.titles = titles;
+        this.imageResourceIds = imageResourceIds;
     }
 
     @NonNull
@@ -29,23 +30,24 @@ class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        holder.tvTitle.setText(data.get(position));
+        holder.tvTitle.setText(titles.get(position));
+        holder.tvImage.setImageResource(imageResourceIds.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        // Assume both ArrayLists have the same size
+        return titles.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
-
         ImageView tvImage;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
-            //tvImage = itemView.findViewById(R.id.tvTitle);
+            tvImage = itemView.findViewById(R.id.tvImage);
         }
     }
 

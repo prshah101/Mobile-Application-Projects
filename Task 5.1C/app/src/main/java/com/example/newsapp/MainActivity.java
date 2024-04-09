@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     RecyclerView rv;
 
-    ArrayList<String> dataSource;
+    ArrayList<String> titleDataSource;
+    ArrayList<Integer> imageDataSource;
     LinearLayoutManager linearLayoutManager;
     MyRvAdapter myRvAdapter;
 
@@ -33,14 +34,20 @@ public class MainActivity extends AppCompatActivity {
         rv = findViewById(R.id.topStoriesHorizontalRV);
 
         //Setting the data source
-        dataSource = new ArrayList<>();
-        dataSource.add("WBS Stock Falling");
-        dataSource.add("Senetor Announces Plans");
-        dataSource.add("New Law Passed");
-        dataSource.add("Team at Championship");
+        titleDataSource = new ArrayList<>();
+        titleDataSource.add("WBS Stock Falling");
+        titleDataSource.add("Senetor Announces Plans");
+        titleDataSource.add("New Law Passed");
+        titleDataSource.add("Team at Championship");
+
+        imageDataSource = new ArrayList<>();
+        imageDataSource.add(R.drawable.top1);
+        imageDataSource.add(R.drawable.top2);
+        imageDataSource.add(R.drawable.top3);
+        imageDataSource.add(R.drawable.top4);
 
         linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        myRvAdapter = new MyRvAdapter(dataSource);
+        myRvAdapter = new MyRvAdapter(titleDataSource, imageDataSource);
         rv.setLayoutManager(linearLayoutManager);
         rv.setAdapter(myRvAdapter);
     }
