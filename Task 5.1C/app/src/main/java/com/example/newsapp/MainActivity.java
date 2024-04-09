@@ -7,8 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    RecyclerView rv;
+
+    ArrayList<String> dataSource;
+    LinearLayoutManager linearLayoutManager;
+    MyRvAdapter myRvAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +29,19 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        rv = findViewById(R.id.topStoriesHorizontalRV);
+
+        //Setting the data source
+        dataSource = new ArrayList<>();
+        dataSource.add("WBS Stock Falling");
+        dataSource.add("Senetor Announces Plans");
+        dataSource.add("New Law Passed");
+        dataSource.add("Team at Championship");
+
+        linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        myRvAdapter = new MyRvAdapter(dataSource);
+        rv.setLayoutManager(linearLayoutManager);
+        rv.setAdapter(myRvAdapter);
     }
 }

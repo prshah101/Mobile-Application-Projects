@@ -29,35 +29,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86abd55b-4b58-4d89-9cfc-dab7bf7dece1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/proguard-rules.pro" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/androidTest/java/com/example/newsapp/ExampleInstrumentedTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/java/com/example/newsapp/MainActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/values-night/themes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/values/themes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/test/java/com/example/newsapp/ExampleUnitTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Task 5.1C/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/java/com/example/newsapp/MyRvAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/layout/rv1_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task 5.1C/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Task 5.1C/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task 5.1C/app/src/main/java/com/example/newsapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/java/com/example/newsapp/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
