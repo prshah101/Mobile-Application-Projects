@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> titleDataSource;
     ArrayList<Integer> imageDataSource;
     LinearLayoutManager linearLayoutManager;
-    MyRvAdapter myRvAdapter;
+    TopStoriesAdapter topStoriesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         imageDataSource.add(R.drawable.top4);
 
         linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        myRvAdapter = new MyRvAdapter(titleDataSource, imageDataSource);
+        topStoriesAdapter = new TopStoriesAdapter(titleDataSource, imageDataSource);
         rv.setLayoutManager(linearLayoutManager);
-        rv.setAdapter(myRvAdapter);
+        rv.setAdapter(topStoriesAdapter);
     }
 }

@@ -13,10 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyHolder> {
+class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesAdapter.MyHolder> {
     ArrayList<String> titles;
     ArrayList<Integer> imageResourceIds;
-    public MyRvAdapter(ArrayList<String> titles, ArrayList<Integer> imageResourceIds) {
+    public TopStoriesAdapter(ArrayList<String> titles, ArrayList<Integer> imageResourceIds) {
         this.titles = titles;
         this.imageResourceIds = imageResourceIds;
     }
@@ -46,8 +46,8 @@ class MyRvAdapter extends RecyclerView.Adapter<MyRvAdapter.MyHolder> {
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvImage = itemView.findViewById(R.id.tvImage);
+            tvTitle = itemView.findViewById(R.id.rv2tvTitle1);
+            tvImage = itemView.findViewById(R.id.rv2tvImage1);
         }
     }
 

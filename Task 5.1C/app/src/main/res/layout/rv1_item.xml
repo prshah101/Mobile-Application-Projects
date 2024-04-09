@@ -18,13 +18,13 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/tvImage"
+                android:id="@+id/rv2tvImage1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/rv2tvTitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

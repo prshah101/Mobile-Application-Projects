@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="12dp"
+    app:cardUseCompatPadding="true">
+
+
+    <ImageView
+        android:id="@+id/rv2tvImage1"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/rv2tvTitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Text"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/rv2tvDescription1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="Description" />
+
+    <ImageView
+        android:id="@+id/rv2tvImage2"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/rv2tvTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/rv2tvDescription2"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Description" />
+</LinearLayout>
