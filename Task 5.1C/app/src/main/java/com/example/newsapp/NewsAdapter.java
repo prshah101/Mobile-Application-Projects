@@ -1,4 +1,7 @@
 package com.example.newsapp;
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +41,16 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
         holder.newsAgency2.setText(newsAgency.get(position));
         holder.newsDescription2.setText(newsDescription.get(position));
         holder.newsImage2.setImageResource(imageResourceIds.get(position));
+
+        holder.newsDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NewsDetails.class);
+                intent.putExtra("selectedDescription", newsDescription.get(position));
+                v.getContext().startActivity(intent);
+
+            }
+        });
     }
 
     @Override
@@ -70,3 +83,6 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
     }
 
 }
+
+
+///////////
