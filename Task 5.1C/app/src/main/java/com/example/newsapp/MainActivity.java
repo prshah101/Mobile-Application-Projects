@@ -15,10 +15,14 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     RecyclerView rv;
 
-    ArrayList<String> titleDataSource;
-    ArrayList<Integer> imageDataSource;
+    RecyclerView rv2;
+
     LinearLayoutManager linearLayoutManager;
+
+    LinearLayoutManager linearLayoutManager2;
     TopStoriesAdapter topStoriesAdapter;
+
+    NewsAdapter newsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +35,31 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        //For Top Stories RV
         rv = findViewById(R.id.topStoriesHorizontalRV);
 
-        //Setting the data source
-        titleDataSource = new ArrayList<>();
-        titleDataSource.add("WBS Stock Falling");
-        titleDataSource.add("Senetor Announces Plans");
-        titleDataSource.add("New Law Passed");
-        titleDataSource.add("Team at Championship");
-
-        imageDataSource = new ArrayList<>();
-        imageDataSource.add(R.drawable.top1);
-        imageDataSource.add(R.drawable.top2);
-        imageDataSource.add(R.drawable.top3);
-        imageDataSource.add(R.drawable.top4);
+        // Get the data from DataSource class
+        ArrayList<String> titleDataSource = DataSource.getTitleDataSource();
+        ArrayList<Integer> imageDataSource = DataSource.getImageDataSource();
 
         linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
         topStoriesAdapter = new TopStoriesAdapter(titleDataSource, imageDataSource);
         rv.setLayoutManager(linearLayoutManager);
         rv.setAdapter(topStoriesAdapter);
+
+
+        // For News RV
+        rv2 = findViewById(R.id.newsHorizontalRV);
+
+        // Get the data from DataSource class
+        ArrayList<Integer> image2DataSource = DataSource.getImage2DataSource();
+        ArrayList<String> newsAgencyDataSource = DataSource.getNewsAgencyDataSource();
+        ArrayList<String> newsDescriptionDataSource = DataSource.getNewsDescriptionDataSource();
+
+
+        linearLayoutManager2 = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        newsAdapter = new NewsAdapter(image2DataSource, newsAgencyDataSource, newsDescriptionDataSource);
+        rv2.setLayoutManager(linearLayoutManager2);
+        rv2.setAdapter(newsAdapter);
     }
 }
