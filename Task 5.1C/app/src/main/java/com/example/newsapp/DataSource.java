@@ -14,6 +14,15 @@ public class DataSource {
         return titleDataSource;
     }
 
+    public static ArrayList<String> getDescriptionDataSource() {
+        ArrayList<String> titleDataSource = new ArrayList<>();
+        titleDataSource.add("Stock's for WBS are Falling like never before");
+        titleDataSource.add("Senetor Beaver announces renovation plans");
+        titleDataSource.add("New Law states, no more than 5 days a week of work");
+        titleDataSource.add("The football team won by a landslide");
+        return titleDataSource;
+    }
+
     public static ArrayList<Integer> getImageDataSource() {
         ArrayList<Integer> imageDataSource = new ArrayList<>();
         imageDataSource.add(R.drawable.top1);
@@ -50,6 +59,17 @@ public class DataSource {
         newsDescriptionDataSource.add("Visa restrictions changed");
         newsDescriptionDataSource.add("Best Investments in 2024");
         return newsDescriptionDataSource;
+    }
+
+
+    public static ArrayList<Integer> getId() {
+        ArrayList<Integer> idDataSource = new ArrayList<>();
+        idDataSource.add(1);
+        idDataSource.add(2);
+        idDataSource.add(3);
+        idDataSource.add(4);
+        return idDataSource;
+
     }
 
 

@@ -12,14 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
+    ArrayList<Integer> newsIds;
     ArrayList<Integer> imageResourceIds;
     ArrayList<String> newsAgency;
     ArrayList<String> newsDescription;
-    public NewsAdapter(ArrayList<Integer> imageResourceIds, ArrayList<String> newsAgency, ArrayList<String> newsDescription) {
+    public NewsAdapter(ArrayList<Integer> newsIds, ArrayList<Integer> imageResourceIds, ArrayList<String> newsAgency, ArrayList<String> newsDescription) {
+        this.newsIds = newsIds;
         this.imageResourceIds = imageResourceIds;
         this.newsAgency = newsAgency;
         this.newsDescription = newsDescription;
@@ -42,16 +45,28 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
         holder.newsDescription2.setText(newsDescription.get(position));
         holder.newsImage2.setImageResource(imageResourceIds.get(position));
 
-        holder.newsDescription.setOnClickListener(new View.OnClickListener() {
+        // Set click listeners for layout1 and layout2
+        holder.layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int clickedId = newsIds.get(position); // Get ID from newsIds array
                 Intent intent = new Intent(v.getContext(), NewsDetails.class);
-                intent.putExtra("selectedDescription", newsDescription.get(position));
+                intent.putExtra("selectedId", clickedId);
                 v.getContext().startActivity(intent);
+            }
+        });
 
+        holder.layout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int clickedId = newsIds.get(position); // Get ID from newsIds array
+                Intent intent = new Intent(v.getContext(), NewsDetails.class);
+                intent.putExtra("selectedId", clickedId);
+                v.getContext().startActivity(intent);
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -69,6 +84,9 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
         TextView newsDescription2;
 
         ImageView newsImage2;
+        LinearLayout layout1;
+        LinearLayout layout2;
+
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +97,9 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
             newsImage2 = itemView.findViewById(R.id.rv2tvImage2);
             newsAgency2 = itemView.findViewById(R.id.rv2tvTitle2);
             newsDescription2 = itemView.findViewById(R.id.rv2tvDescription2);
+
+            layout1 = itemView.findViewById(R.id.layout1);
+            layout2 = itemView.findViewById(R.id.layout2);
         }
     }
 

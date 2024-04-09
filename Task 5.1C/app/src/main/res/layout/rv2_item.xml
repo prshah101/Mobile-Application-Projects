@@ -10,44 +10,59 @@
     app:cardUseCompatPadding="true">
 
 
-    <ImageView
-        android:id="@+id/rv2tvImage1"
+    <LinearLayout
+        android:id="@+id/layout1"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="10dp"
-        android:scaleType="centerCrop" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/rv2tvTitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Text"
-        android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/rv2tvImage1"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/rv2tvDescription1"
+        <TextView
+            android:id="@+id/rv2tvTitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/rv2tvDescription1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="10dp"
+            android:text="Description" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout2"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginBottom="10dp"
-        android:text="Description" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/rv2tvImage2"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="10dp" />
+        <ImageView
+            android:id="@+id/rv2tvImage2"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="10dp" />
 
-    <TextView
-        android:id="@+id/rv2tvTitle2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/rv2tvTitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/rv2tvDescription2"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Description" />
+        <TextView
+            android:id="@+id/rv2tvDescription2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Description" />
+    </LinearLayout>
+
 </LinearLayout>
