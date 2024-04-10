@@ -14,7 +14,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:layout_marginBottom="10dp"
             android:text="My Playlist"
             android:textSize="30sp" />
+
+        <ListView
+            android:id="@+id/listViewPlaylist"
+            android:layout_width="350dp"
+            android:layout_height="match_parent" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

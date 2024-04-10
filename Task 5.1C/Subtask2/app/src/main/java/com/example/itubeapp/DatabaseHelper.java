@@ -93,23 +93,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-//    // Method to update an existing LoginDetails in the database
-//    public boolean updateLogin(LoginDetails loginDetails) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//
-//        cv.put(COLUMN_FULL_NAME, loginDetails.getFullName());
-//        cv.put(COLUMN_PASSWORD, loginDetails.getPassword());
-//
-//        int update = db.update(LOGIN_TABLE, cv, COLUMN_USERNAME + " = ?", new String[]{loginDetails.getUsername()});
-//                // Check if any rows were updated
-//        if (updatedRows == 0) {
-//            return false; // No rows were updated, so return false
-//        } else {
-//            return true; // At least one row was updated, so return true
-//        }
-//    }
-
     // Method to delete a LoginDetails from the database
     public boolean deleteLogin(String username) {
         SQLiteDatabase db = this.getWritableDatabase();

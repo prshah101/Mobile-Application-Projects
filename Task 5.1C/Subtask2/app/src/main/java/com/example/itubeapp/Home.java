@@ -71,6 +71,9 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // navigate to the playlist activity
+                Intent intent = new Intent(Home.this, MyPlaylist.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
             }
         });
     }
