@@ -24,10 +24,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PLAYLIST_USERNAME = "USERNAME";
     public static final String COLUMN_PLAYLIST_URL = "URL";
 
+    //Constructor to define database
     public DatabaseHelper(@Nullable Context context) {
         super(context, "itube.db", null, 1);
     }
 
+    //Create these tables in the SQLite database, if not already set up from previous app compilation
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create LoginDetails table
@@ -45,6 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createPlaylistTableStatement);
     }
 
+    // Method called when the database needs to be upgraded
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Implement if needed
@@ -100,8 +103,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected  > 0;
     }
 
-
-    ////////////////For Playlist//////////////
     // Method to add a new playlist entry to the database
     public boolean addPlaylistEntry(String username, String url) {
         SQLiteDatabase db = this.getWritableDatabase();

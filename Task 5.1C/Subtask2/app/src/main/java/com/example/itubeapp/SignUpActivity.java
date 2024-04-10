@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
         createAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the text entered in password and confirm password fields
+                // Get the text entered in password and confirm password fields into string format
                 String password = passwordEditText.getText().toString();
                 String confirmPassword = confirmPasswordEditText.getText().toString();
 
@@ -47,14 +47,14 @@ public class SignUpActivity extends AppCompatActivity {
                     // Check if username already exists in the database
                     DatabaseHelper databaseHelper = new DatabaseHelper(SignUpActivity.this);
                     if (databaseHelper.getLoginByUsername(username) != null) {
-                        // Username already exists, show toast to create a new one
+                        // Username already exists, show toast to prompt user to change the username
                         Toast.makeText(SignUpActivity.this, "Username already exists. Please choose a different one.", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Username is unique, proceed with adding login details to the database
+                        // Else username is unique, proceed with adding login details to the database
                         // Create a LoginDetails instance
                         LoginDetails loginDetails = new LoginDetails(fullNameEditText.getText().toString(), username, confirmPassword);
 
-                        // Access the addOne() method in the database to add the loginDetails to the database
+                        // Access the addOneLogin() method in the database to add the loginDetails to the database
                         boolean success = databaseHelper.addOneLogin(loginDetails);
 
                         // Display relevant Toast based on the success of adding loginDetails to the database

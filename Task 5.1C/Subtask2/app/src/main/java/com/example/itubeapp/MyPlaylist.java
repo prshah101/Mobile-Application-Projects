@@ -21,7 +21,7 @@ public class MyPlaylist extends AppCompatActivity {
         // Initialize the ListView
         listViewPlaylist = findViewById(R.id.listViewPlaylist);
 
-        // Retrieve the username passed from the previous activity
+        // Retrieve the username passed from the previous activity called Home
         String username = getIntent().getStringExtra("username");
 
         // Query the database to retrieve all URLs associated with the specific username
