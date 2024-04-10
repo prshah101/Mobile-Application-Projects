@@ -38,7 +38,16 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle play button click
                 String url = urlText.getText().toString();
-                // logic to play the video
+
+                if (PlayVideo.getYoutubeId(url) == null){
+                    Toast.makeText(Home.this, "Invalid URL, Can't play video", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    // navigate to the playlist activity
+                    Intent intent = new Intent(Home.this, PlayVideo.class);
+                    intent.putExtra("url", url);
+                    startActivity(intent);
+                }
             }
         });
 
