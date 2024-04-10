@@ -38,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Method to add a new LoginDetails to the database
-    public boolean addLogin(LoginDetails loginDetails) {
+    public boolean addOneLogin(LoginDetails loginDetails) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
