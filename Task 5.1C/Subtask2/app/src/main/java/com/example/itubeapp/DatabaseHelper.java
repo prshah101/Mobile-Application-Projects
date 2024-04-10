@@ -19,17 +19,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USERNAME = "USERNAME";
     public static final String COLUMN_PASSWORD = "PASSWORD";
 
+    // Table and column names for Playlist
+    public static final String PLAYLIST_TABLE = "PLAYLIST_TABLE";
+    public static final String COLUMN_PLAYLIST_USERNAME = "USERNAME";
+    public static final String COLUMN_PLAYLIST_URL = "URL";
+
     public DatabaseHelper(@Nullable Context context) {
         super(context, "itube.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Create LoginDetails table
         String createTableStatement = "CREATE TABLE " + LOGIN_TABLE + " (" +
                 COLUMN_FULL_NAME + " TEXT, " +
                 COLUMN_USERNAME + " TEXT, " +
                 COLUMN_PASSWORD + " TEXT)";
         db.execSQL(createTableStatement);
+
+        // Create Playlist table
+        String createPlaylistTableStatement = "CREATE TABLE " + PLAYLIST_TABLE + " (" +
+                COLUMN_PLAYLIST_USERNAME + " TEXT, " +
+                COLUMN_PLAYLIST_URL + " TEXT, " +
+                " FOREIGN KEY (" + COLUMN_PLAYLIST_USERNAME + ") REFERENCES " + LOGIN_TABLE + "(" + COLUMN_USERNAME + "))";
+        db.execSQL(createPlaylistTableStatement);
     }
 
     @Override
@@ -47,11 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_PASSWORD, loginDetails.getPassword());
 
         long insert = db.insert(LOGIN_TABLE, null, cv);
-        if (insert == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return insert != -1;
     }
 
     // Method to retrieve a LoginDetails from the database by username
@@ -68,6 +77,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
+
+    // Method to retrieve a LoginDetails from the database by username and password
+    public LoginDetails getLoginByUsernameAndPassword(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + LOGIN_TABLE + " WHERE " + COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+        Cursor cursor = db.rawQuery(queryString, new String[]{username, password});
+
+        if (cursor.moveToFirst()) {
+            String fullName = cursor.getString(0);
+            return new LoginDetails(fullName, username, password);
+        } else {
+            return null;
+        }
+    }
+
 
 //    // Method to update an existing LoginDetails in the database
 //    public boolean updateLogin(LoginDetails loginDetails) {
@@ -91,5 +115,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsAffected  = db.delete(LOGIN_TABLE, COLUMN_USERNAME + " = ?", new String[]{username});
         return rowsAffected  > 0;
+    }
+
+
+    ////////////////For Playlist//////////////
+    // Method to add a new playlist entry to the database
+    public boolean addPlaylistEntry(String username, String url) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_PLAYLIST_USERNAME, username);
+        cv.put(COLUMN_PLAYLIST_URL, url);
+
+        long insert = db.insert(PLAYLIST_TABLE, null, cv);
+        return insert != -1;
+    }
+
+    // Method to retrieve all playlist entries for a given username
+    public List<String> getPlaylistForUser(String username) {
+        List<String> playlist = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + PLAYLIST_TABLE + " WHERE " + COLUMN_PLAYLIST_USERNAME + " = ?";
+        Cursor cursor = db.rawQuery(queryString, new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            do {
+                String url = cursor.getString(1);
+                playlist.add(url);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return playlist;
     }
 }

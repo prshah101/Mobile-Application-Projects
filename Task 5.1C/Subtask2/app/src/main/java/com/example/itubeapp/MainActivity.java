@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,5 +38,31 @@ public class MainActivity extends AppCompatActivity {
                  startActivity(intent);
             }
         });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the entered username and password
+                String username = usernameEnter.getText().toString();
+                String password = passwordEnter.getText().toString();
+
+                // Create an instance of DatabaseHelper to access the database
+                DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
+
+                // Check if the username and password exist in the database
+                LoginDetails isValidLogin = databaseHelper.getLoginByUsernameAndPassword(username, password);
+
+                if (isValidLogin != null) {
+                    // Username and password exist in the database, navigate to Home activity
+                    Intent intent = new Intent(MainActivity.this, Home.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
+                } else {
+                    // Username and password do not match, show an error message
+                    Toast.makeText(MainActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }
