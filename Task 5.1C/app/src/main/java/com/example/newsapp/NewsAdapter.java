@@ -41,9 +41,9 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
         holder.newsDescription.setText(newsDescription.get(position));
         holder.newsImage.setImageResource(imageResourceIds.get(position));
 
-        holder.newsAgency2.setText(newsAgency.get(position));
-        holder.newsDescription2.setText(newsDescription.get(position));
-        holder.newsImage2.setImageResource(imageResourceIds.get(position));
+        holder.newsAgency2.setText(newsAgency.get(position+2));
+        holder.newsDescription2.setText(newsDescription.get(position+2));
+        holder.newsImage2.setImageResource(imageResourceIds.get(position+2));
 
         // Set click listeners for layout1 and layout2
         holder.layout1.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
             public void onClick(View v) {
                 int clickedId = newsIds.get(position); // Get ID from newsIds array
                 Intent intent = new Intent(v.getContext(), NewsDetails.class);
-                intent.putExtra("selectedId", clickedId);
+                intent.putExtra("selectedId", clickedId+2);
                 v.getContext().startActivity(intent);
             }
         });
@@ -71,7 +71,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
     @Override
     public int getItemCount() {
         // Assume all ArrayLists have the same size
-        return newsAgency.size();
+        return newsAgency.size()/2;
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
