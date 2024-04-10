@@ -21,6 +21,8 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
     ArrayList<Integer> imageResourceIds;
     ArrayList<String> newsAgency;
     ArrayList<String> newsDescription;
+
+    // Constructor to initialize adapter with data
     public NewsAdapter(ArrayList<Integer> newsIds, ArrayList<Integer> imageResourceIds, ArrayList<String> newsAgency, ArrayList<String> newsDescription) {
         this.newsIds = newsIds;
         this.imageResourceIds = imageResourceIds;
@@ -31,12 +33,14 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate layout for each item view when View Holder is created
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv2_item, parent, false);
         return new MyHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+        // Bind data to views
         holder.newsAgency.setText(newsAgency.get(position));
         holder.newsDescription.setText(newsDescription.get(position));
         holder.newsImage.setImageResource(imageResourceIds.get(position));
@@ -70,10 +74,10 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyHolder> {
 
     @Override
     public int getItemCount() {
-        // Assume all ArrayLists have the same size
         return newsAgency.size()/2;
     }
 
+    // ViewHolder class to hold item views
     class MyHolder extends RecyclerView.ViewHolder {
         TextView newsAgency;
         TextView newsDescription;

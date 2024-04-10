@@ -35,37 +35,36 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        //For Top Stories RV
+        //For Top Stories RecyclerView //
         rv = findViewById(R.id.topStoriesHorizontalRV);
 
-        // Get the data from DataSource class
+        // Get the data from DataSource class for top stories
         ArrayList<Integer> topStoriesIds = DataSource.getId();
         ArrayList<String> titleDataSource = DataSource.getTitleDataSource();
         ArrayList<Integer> imageDataSource = DataSource.getImageDataSource();
         ArrayList<String> getDescriptionDataSource = DataSource.getDescriptionDataSource();
 
+        // Initialize and set up the adapter for top stories RecyclerView
         linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
         topStoriesAdapter = new TopStoriesAdapter(topStoriesIds, imageDataSource, titleDataSource, getDescriptionDataSource);
         rv.setLayoutManager(linearLayoutManager);
         rv.setAdapter(topStoriesAdapter);
 
 
-        // For News RV
+        // For News RecyclerView //
         rv2 = findViewById(R.id.newsHorizontalRV);
 
-        // Get the data from DataSource class
+        // Get the data from DataSource class for news
         ArrayList<Integer> newsId = DataSource.getId();
         ArrayList<Integer> image2DataSource = DataSource.getImage2DataSource();
         ArrayList<String> newsAgencyDataSource = DataSource.getNewsAgencyDataSource();
         ArrayList<String> newsDescriptionDataSource = DataSource.getNewsDescriptionDataSource();
 
-
+        // Initialize and set up the adapter for news RecyclerView
         linearLayoutManager2 = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
         newsAdapter = new NewsAdapter(newsId, image2DataSource, newsAgencyDataSource, newsDescriptionDataSource);
         rv2.setLayoutManager(linearLayoutManager2);
         rv2.setAdapter(newsAdapter);
-
-
 
     }
 }

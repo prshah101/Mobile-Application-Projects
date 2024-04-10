@@ -22,6 +22,8 @@ class RelatedTopStoriesAdapter extends RecyclerView.Adapter<RelatedTopStoriesAda
     ArrayList<Integer> imageResourceIds;
     ArrayList<String> titles;
     ArrayList<String> description;
+
+    // Constructor to initialize adapter with data
     public RelatedTopStoriesAdapter(ArrayList<Integer> topStoriesIds, ArrayList<Integer> imageResourceIds, ArrayList<String> titles, ArrayList<String> description) {
         this.topStoriesIds = topStoriesIds;
         this.titles = titles;
@@ -32,16 +34,20 @@ class RelatedTopStoriesAdapter extends RecyclerView.Adapter<RelatedTopStoriesAda
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate layout for each item view when View Holder is created
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv3_item, parent, false);
         return new MyHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+        // Bind data to views
         holder.titleText.setText(titles.get(position));
         holder.descriptionText.setText(description.get(position));
         holder.newStoryImage.setImageResource(imageResourceIds.get(position));
 
+        // Set click listener for layout
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +66,7 @@ class RelatedTopStoriesAdapter extends RecyclerView.Adapter<RelatedTopStoriesAda
         return titles.size();
     }
 
+    // ViewHolder class to hold item views
     class MyHolder extends RecyclerView.ViewHolder {
 
         ImageView newStoryImage;
