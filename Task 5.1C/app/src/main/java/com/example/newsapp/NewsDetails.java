@@ -35,19 +35,12 @@ public class NewsDetails extends AppCompatActivity {
         setContentView(R.layout.activity_news_details);
         Button backtoMainBtn = findViewById(R.id.backBtn);
 
-        //String selectedItemDueDate = getIntent().getStringExtra("selectedDescription");
-//        //Set the values retrieved from MainActivity
-//        selectedDescriptionText = findViewById(R.id.selectedDescriptionText);
-//        Log.i("Test", selectedItemDueDate);
-//        selectedDescriptionText.setText(selectedItemDueDate);
         TextView selectedDescriptionText = findViewById(R.id.selectedDescriptionText);
         TextView selectedTitleText = findViewById(R.id.selectedTitleText);
         ImageView selectedImageView = findViewById(R.id.newsImage);
         rv = findViewById(R.id.verticalRV);
 
         int  id = getIntent().getIntExtra("selectedId", 0);
-//        String idString = String.valueOf(id);
-//        selectedDescriptionText.setText(idString);
         boolean fromTopStories = getIntent().getBooleanExtra("fromTopStories", false);
 
         if (fromTopStories == true){
@@ -55,7 +48,7 @@ public class NewsDetails extends AppCompatActivity {
             selectedDescriptionText.setText(DataSource.getDescriptionDataSource().get(id - 1)); // Adjusting index by 1 since IDs start from 1
             // Set the news title
             selectedTitleText.setText(DataSource.getTitleDataSource().get(id - 1)); // Adjusting index by 1
-//            // Set the news image
+            // Set the news image
             selectedImageView.setImageResource(DataSource.getImageDataSource().get(id - 1));
 
             // Get the data from DataSource class
