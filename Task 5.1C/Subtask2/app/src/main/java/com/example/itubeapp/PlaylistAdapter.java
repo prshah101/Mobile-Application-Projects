@@ -25,10 +25,10 @@ public class PlaylistAdapter extends ArrayAdapter<String> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.playlist_item, parent, false);
         }
 
-        // Lookup view for data population
+        // Initialise the view with the relevant text view found in the playlist_item.xml
         TextView textView = convertView.findViewById(R.id.playlistItemText);
 
-        // Populate the data into the template view (playlist_item) using the data object
+        // Populate the data into the template view (playlist_item.xml) using the data object
         textView.setText(url);
 
         // Return the completed view to render on screen
