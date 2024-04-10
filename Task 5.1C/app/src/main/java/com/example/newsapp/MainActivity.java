@@ -64,5 +64,8 @@ public class MainActivity extends AppCompatActivity {
         newsAdapter = new NewsAdapter(newsId, image2DataSource, newsAgencyDataSource, newsDescriptionDataSource);
         rv2.setLayoutManager(linearLayoutManager2);
         rv2.setAdapter(newsAdapter);
+
+
+
     }
 }
