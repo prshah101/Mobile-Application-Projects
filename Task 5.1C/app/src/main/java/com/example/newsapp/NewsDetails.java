@@ -12,11 +12,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.widget.ImageView;
 
-public class NewsDetails extends AppCompatActivity {
-    TextView selectedDescriptionText;
+import java.util.ArrayList;
 
+public class NewsDetails extends AppCompatActivity {
+    RecyclerView rv;
+
+    LinearLayoutManager linearLayoutManager;
+
+    LinearLayoutManager linearLayoutManager2;
+    RelatedTopStoriesAdapter relatedTopStoriesAdapter;
+
+    RelatedNewsAdapter relatedNewsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +43,7 @@ public class NewsDetails extends AppCompatActivity {
         TextView selectedDescriptionText = findViewById(R.id.selectedDescriptionText);
         TextView selectedTitleText = findViewById(R.id.selectedTitleText);
         ImageView selectedImageView = findViewById(R.id.newsImage);
+        rv = findViewById(R.id.verticalRV);
 
         int  id = getIntent().getIntExtra("selectedId", 0);
 //        String idString = String.valueOf(id);
@@ -45,6 +57,18 @@ public class NewsDetails extends AppCompatActivity {
             selectedTitleText.setText(DataSource.getTitleDataSource().get(id - 1)); // Adjusting index by 1
 //            // Set the news image
             selectedImageView.setImageResource(DataSource.getImageDataSource().get(id - 1));
+
+            // Get the data from DataSource class
+            ArrayList<Integer> newsId = DataSource.getId();
+            ArrayList<Integer> image2DataSource = DataSource.getImage2DataSource();
+            ArrayList<String> newsAgencyDataSource = DataSource.getNewsAgencyDataSource();
+            ArrayList<String> newsDescriptionDataSource = DataSource.getNewsDescriptionDataSource();
+
+
+            linearLayoutManager = new LinearLayoutManager(NewsDetails.this, LinearLayoutManager.VERTICAL, false);
+            relatedNewsAdapter = new RelatedNewsAdapter(newsId, image2DataSource, newsAgencyDataSource, newsDescriptionDataSource);
+            rv.setLayoutManager(linearLayoutManager);
+            rv.setAdapter(relatedNewsAdapter);
         }else{
             //Set the values retrieved from MainActivity
             selectedDescriptionText.setText(DataSource.getNewsDescriptionDataSource().get(id - 1)); // Adjusting index by 1 since IDs start from 1
@@ -52,6 +76,17 @@ public class NewsDetails extends AppCompatActivity {
             selectedTitleText.setText(DataSource.getNewsAgencyDataSource().get(id - 1)); // Adjusting index by 1
             // Set the news image
             selectedImageView.setImageResource(DataSource.getImage2DataSource().get(id - 1));
+
+            // Get the data from DataSource class
+            ArrayList<Integer> topStoriesIds = DataSource.getId();
+            ArrayList<String> titleDataSource = DataSource.getTitleDataSource();
+            ArrayList<Integer> imageDataSource = DataSource.getImageDataSource();
+            ArrayList<String> getDescriptionDataSource = DataSource.getDescriptionDataSource();
+
+            linearLayoutManager = new LinearLayoutManager(NewsDetails.this, LinearLayoutManager.VERTICAL, false);
+            relatedTopStoriesAdapter = new RelatedTopStoriesAdapter(topStoriesIds, imageDataSource, titleDataSource, getDescriptionDataSource);
+            rv.setLayoutManager(linearLayoutManager);
+            rv.setAdapter(relatedTopStoriesAdapter);
         }
 
         backtoMainBtn.setOnClickListener(new View.OnClickListener() {

@@ -60,6 +60,7 @@
             android:text="Related Stories" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/verticalRV"
             android:layout_width="334dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="40dp" />
