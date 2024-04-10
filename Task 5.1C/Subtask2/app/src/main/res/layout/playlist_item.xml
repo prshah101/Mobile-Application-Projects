@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/playlistItemText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textIsSelectable="true"
+        android:textSize="16sp" />
+</LinearLayout>
