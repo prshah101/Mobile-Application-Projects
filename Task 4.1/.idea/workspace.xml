@@ -28,11 +28,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86abd55b-4b58-4d89-9cfc-dab7bf7dece1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Task 5.1C/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Task 5.1C/app/src/main/java/com/example/newsapp/NewsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Task 5.1C/app/src/main/java/com/example/newsapp/NewsAdapter.java" afterDir="false" />
-    </list>
+    <list default="true" id="86abd55b-4b58-4d89-9cfc-dab7bf7dece1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +37,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[adb-26171JEGR14585-D0MoTM._adb-tls-connect._tcp]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\Dell\.android\avd\Pixel_5_API_TiramisuPrivacySandbox.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
