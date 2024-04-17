@@ -10,9 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#17A4FF"
         android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
-        android:background="#3E99D6">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -27,9 +27,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:text="Welcome,"
+                android:textColor="#000000"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:textColor="#000000"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/appWelcomeTitle2"
@@ -47,9 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
                 android:text="Let's Start Learning!"
+                android:textColor="#000000"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="#000000"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -130,21 +130,24 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/loginBtn"
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="#16CD31"
+                android:backgroundTint="#02FD71"
                 android:text="Login"
                 android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
 
             <Button
                 android:id="@+id/signUpBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#3E99D6"
+                android:backgroundTint="#17A4FF"
                 android:text="Need an Account?"
                 android:textColor="#020202"
                 android:textStyle="bold" />

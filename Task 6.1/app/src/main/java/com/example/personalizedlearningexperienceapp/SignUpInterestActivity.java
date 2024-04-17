@@ -29,20 +29,18 @@ public class SignUpInterestActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.nextBtn);
 
         // Get the data from DataSource class for topics
-        ArrayList<String> topics = DataSource.geTopics();
+        ArrayList<String> topics1 = DataSource.geTopics1();
+        ArrayList<String> topics2 = DataSource.geTopics2();
 
         // Initialize and set up the adapter for top stories RecyclerView
         linearLayoutManager = new LinearLayoutManager(SignUpInterestActivity.this, LinearLayoutManager.VERTICAL, false);
-        topicsAdapter = new TopicAdapter(topics);
+        topicsAdapter = new TopicAdapter(topics1, topics2);
         rv1.setLayoutManager(linearLayoutManager);
         rv1.setAdapter(topicsAdapter);
-
-
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(SignUpInterestActivity.this, MainActivity.class);
                 startActivity(intent);
             }
