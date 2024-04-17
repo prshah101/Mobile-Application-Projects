@@ -12,14 +12,45 @@
         android:orientation="vertical"
         tools:background="#3E99D6">
 
-        <TextView
-            android:id="@+id/signUpTitle"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:text="Sign Up"
-            android:textSize="30dp" />
+            android:orientation="vertical"
+            tools:layout_marginRight="110dp">
+
+            <TextView
+                android:id="@+id/signUpTitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="Let's get you"
+                android:textColor="#000000"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/signUpTitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Set Up!"
+                android:textColor="#000000"
+                android:textSize="43dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/profile"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+
+
 
 
         <com.google.android.material.card.MaterialCardView
@@ -29,7 +60,7 @@
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            app:contentPadding="10dp"
+            app:contentPadding="5dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp">
 
@@ -64,7 +95,7 @@
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            app:contentPadding="10dp"
+            app:contentPadding="5dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp">
 
@@ -99,7 +130,7 @@
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            app:contentPadding="10dp"
+            app:contentPadding="5dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp">
 
@@ -134,7 +165,7 @@
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            app:contentPadding="10dp"
+            app:contentPadding="5dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp">
 
@@ -168,7 +199,7 @@
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            app:contentPadding="10dp"
+            app:contentPadding="5dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp">
 
@@ -203,7 +234,7 @@
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="10dp"
             app:cardElevation="2dp"
-            app:contentPadding="10dp"
+            app:contentPadding="5dp"
             app:strokeColor="#000000"
             app:strokeWidth="1dp">
 
@@ -236,7 +267,7 @@
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Create Account"
+            android:text="Create New Account"
             android:textColor="#000000"
             tools:backgroundTint="#16CD31" />
     </LinearLayout>
