@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.personalizedlearningexperienceapp.UserDetails;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table and column names for UserDetails
@@ -28,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_USERNAME + " TEXT PRIMARY KEY, " +
                 COLUMN_PASSWORD + " TEXT, " +
                 COLUMN_EMAIL + " TEXT, " +
-                COLUMN_PHONE_NUMBER + " TEXT)";
+                COLUMN_PHONE_NUMBER + " INTEGER)"; // Changed the column type to INTEGER
         db.execSQL(createTableStatement);
     }
 
@@ -46,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_USERNAME, userDetails.getUsername());
         cv.put(COLUMN_PASSWORD, userDetails.getPassword());
         cv.put(COLUMN_EMAIL, userDetails.getEmail());
-        cv.put(COLUMN_PHONE_NUMBER, userDetails.getPhoneNumber());
+        cv.put(COLUMN_PHONE_NUMBER, userDetails.getPhoneNumber()); // Using getPhoneNumber()
 
         long insert = db.insert(USER_TABLE, null, cv);
         return insert != -1;
@@ -61,8 +63,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             String password = cursor.getString(1);
             String email = cursor.getString(2);
-            String phoneNumber = cursor.getString(3);
-            return new UserDetails(username, password, email, phoneNumber);
+            int phoneNumber = cursor.getInt(3); // Changed to getInt()
+            return new UserDetails(username, password, email, phoneNumber); // Changed to int
         } else {
             return null;
         }
@@ -76,8 +78,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             String email = cursor.getString(2);
-            String phoneNumber = cursor.getString(3);
-            return new UserDetails(username, password, email, phoneNumber);
+            int phoneNumber = cursor.getInt(3); // Changed to getInt()
+            return new UserDetails(username, password, email, phoneNumber); // Changed to int
         } else {
             return null;
         }
@@ -86,7 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Method to delete a UserDetails from the database
     public boolean deleteUser(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int rowsAffected  = db.delete(USER_TABLE, COLUMN_USERNAME + " = ?", new String[]{username});
-        return rowsAffected  > 0;
+        int rowsAffected = db.delete(USER_TABLE, COLUMN_USERNAME + " = ?", new String[]{username});
+        return rowsAffected > 0;
     }
 }

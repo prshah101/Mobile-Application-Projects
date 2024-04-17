@@ -7,18 +7,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#3E99D6"
         android:gravity="center"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout_marginBottom="20dp" />
 
         <Button
             android:id="@+id/nextBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="#16CD31"
             android:text="Next" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

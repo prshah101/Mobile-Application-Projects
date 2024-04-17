@@ -4,9 +4,9 @@ public class UserDetails {
     private String username;
     private String password;
     private String email;
-    private String phoneNumber;
+    private Integer phoneNumber;
 
-    public UserDetails(String username, String password, String email, String phoneNumber) {
+    public UserDetails(String username, String password, String email, Integer phoneNumber) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -37,11 +37,11 @@ public class UserDetails {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
