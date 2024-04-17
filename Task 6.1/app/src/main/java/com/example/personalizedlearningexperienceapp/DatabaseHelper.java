@@ -68,6 +68,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Method to retrieve a UserDetails from the database by username and password
+    public UserDetails getUserByUsernameAndPassword(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + USER_TABLE + " WHERE " + COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+        Cursor cursor = db.rawQuery(queryString, new String[]{username, password});
+
+        if (cursor.moveToFirst()) {
+            String email = cursor.getString(2);
+            String phoneNumber = cursor.getString(3);
+            return new UserDetails(username, password, email, phoneNumber);
+        } else {
+            return null;
+        }
+    }
+
     // Method to delete a UserDetails from the database
     public boolean deleteUser(String username) {
         SQLiteDatabase db = this.getWritableDatabase();

@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".SignUp" />
+        <activity android:name=".AllTasks" />
     </application>
 
 </manifest>
