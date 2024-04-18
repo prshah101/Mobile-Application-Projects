@@ -1,0 +1,22 @@
+ if (row1 ==true){
+            // Set the layout width of the buttons programmatically
+            ViewGroup.LayoutParams params = holder.topicButton.getLayoutParams();
+            params.width = 375; // Set your desired width here
+            holder.topicButton.setLayoutParams(params);
+
+            ViewGroup.LayoutParams params2 = holder.topicButton2.getLayoutParams();
+            params2.width = 535; // Set your desired width here
+            holder.topicButton2.setLayoutParams(params2);
+            row1 = false;
+        }
+        else{
+            // Set the layout width of the buttons programmatically
+            ViewGroup.LayoutParams params = holder.topicButton.getLayoutParams();
+            params.width = 535; // Set your desired width here
+            holder.topicButton.setLayoutParams(params);
+
+            ViewGroup.LayoutParams params2 = holder.topicButton2.getLayoutParams();
+            params2.width = 375; // Set your desired width here
+            holder.topicButton2.setLayoutParams(params2);
+            row1 = true;
+        }
