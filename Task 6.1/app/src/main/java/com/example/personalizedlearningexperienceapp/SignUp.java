@@ -80,7 +80,7 @@ public class SignUp extends AppCompatActivity {
 
                         // If username and password exist in the database, navigate to Home activity
                         Intent intent = new Intent(SignUp.this, SignUpInterestActivity.class);
-                        //intent.putExtra("username", username);
+                        intent.putExtra("username", username);
                         startActivity(intent);
                     }
                 }

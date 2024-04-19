@@ -3,6 +3,7 @@ package com.example.personalizedlearningexperienceapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,10 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                     isSelectMode = false;
                 }
 
+//                // Print all the values in selectedIntrestsList
+//                for (String interest : selectedIntrestsList) {
+//                    Toast.makeText(holder.itemView.getContext(), interest, Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
@@ -92,6 +97,11 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     @Override
     public int getItemCount() {
         return topics1.size();
+    }
+
+
+    public List<String> getSelectedIntrestsList() {
+        return selectedIntrestsList;
     }
 
 

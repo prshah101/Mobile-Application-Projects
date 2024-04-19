@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.personalizedlearningexperienceapp.TopicAdapter;
 
@@ -28,6 +29,9 @@ public class SignUpInterestActivity extends AppCompatActivity {
         rv1 = findViewById(R.id.rv1);
         nextButton = findViewById(R.id.nextBtn);
 
+        // Retrieve selected news ID and source information from SignUp page
+        String username = getIntent().getStringExtra("username");
+
         // Get the data from DataSource class for topics
         ArrayList<String> topics1 = DataSource.geTopics1();
         ArrayList<String> topics2 = DataSource.geTopics2();
@@ -41,7 +45,13 @@ public class SignUpInterestActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Print all the values in selectedIntrestsList
+                for (String interest : topicsAdapter.getSelectedIntrestsList()) {
+                    Toast.makeText(SignUpInterestActivity.this, interest, Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = new Intent(SignUpInterestActivity.this, MainActivity.class);
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });
