@@ -42,14 +42,25 @@ public class SignUpInterestActivity extends AppCompatActivity {
         rv1.setLayoutManager(linearLayoutManager);
         rv1.setAdapter(topicsAdapter);
 
+        DatabaseHelper databaseHelper = new DatabaseHelper(SignUpInterestActivity.this);
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+//                // Print all the values in selectedIntrestsList
+//                for (String interest : topicsAdapter.getSelectedIntrestsList()) {
+//                    Toast.makeText(SignUpInterestActivity.this, interest, Toast.LENGTH_SHORT).show();
+//                }
+
                 // Print all the values in selectedIntrestsList
                 for (String interest : topicsAdapter.getSelectedIntrestsList()) {
-                    Toast.makeText(SignUpInterestActivity.this, interest, Toast.LENGTH_SHORT).show();
+                    // Access the addOneLogin() method in the database to add the loginDetails to the database
+                    boolean success = databaseHelper.addInterest(username, interest);
                 }
+
+                Toast.makeText(SignUpInterestActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(SignUpInterestActivity.this, MainActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);

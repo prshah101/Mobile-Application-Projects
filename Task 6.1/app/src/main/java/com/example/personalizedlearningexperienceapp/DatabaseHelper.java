@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.personalizedlearningexperienceapp.UserDetails;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table and column names for UserDetails
@@ -16,6 +19,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PASSWORD = "PASSWORD";
     public static final String COLUMN_EMAIL = "EMAIL";
     public static final String COLUMN_PHONE_NUMBER = "PHONE_NUMBER";
+
+    // Table and column names for Playlist
+    public static final String INTERESTS_TABLE = "INTERESTS_TABLE";
+    public static final String COLUMN_INTERESTS_USERNAME = "USERNAME";
+    public static final String COLUMN_INTEREST = "INTEREST";
 
     // Constructor to define database
     public DatabaseHelper(Context context) {
@@ -32,6 +40,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_EMAIL + " TEXT, " +
                 COLUMN_PHONE_NUMBER + " INTEGER)"; // Changed the column type to INTEGER
         db.execSQL(createTableStatement);
+
+        // Create Playlist table
+        String createPlaylistTableStatement = "CREATE TABLE " + INTERESTS_TABLE + " (" +
+                COLUMN_INTERESTS_USERNAME + " TEXT, " +
+                COLUMN_INTEREST + " TEXT, " +
+                " FOREIGN KEY (" + COLUMN_INTERESTS_USERNAME + ") REFERENCES " + USER_TABLE + "(" + COLUMN_USERNAME + "))";
+        db.execSQL(createPlaylistTableStatement);
     }
 
     // Method called when the database needs to be upgraded
@@ -91,4 +106,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int rowsAffected = db.delete(USER_TABLE, COLUMN_USERNAME + " = ?", new String[]{username});
         return rowsAffected > 0;
     }
+
+
+    // Method to add a new interest entry to the database
+    public boolean addInterest(String username, String url) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_INTERESTS_USERNAME, username);
+        cv.put(COLUMN_INTEREST, url);
+
+        long insert = db.insert(INTERESTS_TABLE, null, cv);
+        return insert != -1;
+    }
+
+
+    // Method to retrieve all interest entries for a given username
+
+    public List<String> getPlaylistForUser(String username) {
+        List<String> playlist = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + INTERESTS_TABLE + " WHERE " + COLUMN_INTERESTS_USERNAME + " = ?";
+        Cursor cursor = db.rawQuery(queryString, new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            do {
+                String url = cursor.getString(1);
+                playlist.add(url);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return playlist;
+    }
 }
+

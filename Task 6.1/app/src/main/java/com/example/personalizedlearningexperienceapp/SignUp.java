@@ -67,14 +67,6 @@ public class SignUp extends AppCompatActivity {
 
                         // Access the addOneLogin() method in the database to add the loginDetails to the database
                         boolean success = databaseHelper.addOneUser(userDetails);
-
-                        // Display relevant Toast based on the success of adding loginDetails to the database
-                        if (success) {
-                            Toast.makeText(SignUp.this, "Login Details added successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(SignUp.this, "Failed to add Login Details", Toast.LENGTH_SHORT).show();
-                        }
-
                         // Finish the current activity (SignUpActivity) and return to MainActivity
                         //finish();
 
