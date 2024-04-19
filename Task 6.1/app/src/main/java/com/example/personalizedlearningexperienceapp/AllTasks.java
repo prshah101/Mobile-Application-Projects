@@ -2,12 +2,15 @@ package com.example.personalizedlearningexperienceapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.personalizedlearningexperienceapp.Models.Todo;
 
 import java.util.List;
 
@@ -22,6 +25,8 @@ public class AllTasks extends AppCompatActivity {
     TextView allTasksTitle1;
     TextView allTasksTitle2;
     TextView allTasksTitle3;
+
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,9 @@ public class AllTasks extends AppCompatActivity {
         allTasksTitle3 = findViewById(R.id.allTasksTitle3);
         RecyclerView recyclerView = findViewById(R.id.rv2);
 
+        listView = findViewById(R.id.todosList);
+        ArrayAdapter<Todo> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+
         // Retrieve selected news ID and source information from SignUp page
         String username = getIntent().getStringExtra("username");
         allTasksTitle2.setText(username);
@@ -40,41 +48,25 @@ public class AllTasks extends AppCompatActivity {
     }
 
     private void fetchData() {
-
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://dunnyison.com/")
+                .baseUrl("https://jsonplaceholder.typicode.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        ApiService apiService = retrofit.create(ApiService.class);
+        Call<List<Todo>> call = apiService.getTodos();
+        call.enqueue(new Callback<List<Todo>>() {
 
-        TodoRequest request = retrofit.create(TodoRequest.class);
-
-        //Toast.makeText(getApplicationContext(), "Working", Toast.LENGTH_SHORT).show();
-        request.getTodos().enqueue(new Callback<TodoResponse>() {
+            ArrayAdapter<Todo> arrayAdapter = new ArrayAdapter<>(AllTasks.this, android.R.layout.simple_list_item_1);
             @Override
-            public void onResponse(Call<TodoResponse> call, Response<TodoResponse> response) {
-                //Toast.makeText(getApplicationContext(), "Working2", Toast.LENGTH_SHORT).show();
-                if (response.isSuccessful()) {
-                    TodoResponse todoResponse = response.body();
-                    if (todoResponse != null) {
-                        List<TodoItem> todoItems = todoResponse.getTodos();
-
-                        RecyclerView recyclerView = findViewById(R.id.rv2);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(AllTasks.this));
-
-//                        MyAdapter adapter = new MyAdapter(todoItems);
-//                        recyclerView.setAdapter(adapter);
-//                        for (TodoResponse.TodoItem item : todoItems) {
-//                            Toast.makeText(AllTasks.this, item.getTodo(), Toast.LENGTH_SHORT).show();
-//                        }
-
-
-                    }
-                }
+            public void onResponse(Call<List<Todo>> call, Response<List<Todo>> response) {
+                arrayAdapter.addAll(response.body());
+                listView.setAdapter(arrayAdapter);
+                Toast.makeText(AllTasks.this, "Todos fetched successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<TodoResponse> call, Throwable t) {
-                Log.e("All Tasks", "Failed to fetch data", t);
+            public void onFailure(Call<List<Todo>> call, Throwable t) {
+                Toast.makeText(AllTasks.this, "Error fetching data", Toast.LENGTH_SHORT).show();
             }
         });
     }
