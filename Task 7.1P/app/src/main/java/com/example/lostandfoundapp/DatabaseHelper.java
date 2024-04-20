@@ -104,4 +104,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Return true if at least one row was deleted, false otherwise
         return rowsDeleted > 0;
     }
+
+    public Advert getAdvertByName(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Advert advert = null;
+
+        String queryString = "SELECT * FROM " + ADVERTS_TABLE + " WHERE " + COLUMN_NAME + "=?";
+        Cursor cursor = db.rawQuery(queryString, new String[]{name});
+
+        if (cursor.moveToFirst()) {
+            String advertName = cursor.getString(1);
+            int phone = cursor.getInt(2);
+            String description = cursor.getString(3);
+            String dateString = cursor.getString(4);
+            String location = cursor.getString(5);
+            boolean isLost = cursor.getInt(6) == 1;
+
+            advert = new Advert(advertName, phone, description, dateString, location, isLost);
+        }
+
+        cursor.close();
+        return advert;
+    }
+
 }

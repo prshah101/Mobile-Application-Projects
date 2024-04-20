@@ -25,7 +25,7 @@ public class Advert {
     // Method to parse date string into Date object
     private Date parseDate(String dateString) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // Specify the date format
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"); // Specify the date format
             return sdf.parse(dateString); // Parse the date string
         } catch (ParseException e) {
             e.printStackTrace();

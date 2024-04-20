@@ -10,6 +10,13 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class RemoveAdvertActivity extends AppCompatActivity {
 
     TextView postTypeItemTv2;
@@ -41,6 +48,18 @@ public class RemoveAdvertActivity extends AppCompatActivity {
         postItemTv2.setText(name);
 
         DatabaseHelper databaseHelper = new DatabaseHelper(RemoveAdvertActivity.this);
+
+        Advert selectedAdvert = databaseHelper.getAdvertByName(postItemTv2.getText().toString());
+        locationTv2.setText(selectedAdvert.getLocation());
+
+        Date selectedAdvertDate = selectedAdvert.getDate();
+        Date currentDate = Calendar.getInstance().getTime();//getting current date
+
+        // Calculate the difference in milliseconds
+        long differenceMillis = currentDate.getTime() - selectedAdvertDate.getTime();
+        // Convert milliseconds to days
+        long differenceDays = differenceMillis / (1000 * 60 * 60 * 24);
+        dateTv2.setText(String.valueOf(differenceDays) + " days ago");
 
         // Set OnClickListener for remove button
         removeBtn.setOnClickListener(new View.OnClickListener() {
