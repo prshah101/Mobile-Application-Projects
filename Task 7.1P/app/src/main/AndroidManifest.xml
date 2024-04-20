@@ -24,6 +24,7 @@
 
         <activity android:name=".NewAdvertActivity" />
         <activity android:name=".AllAdvertsActivity" />
+        <activity android:name=".RemoveAdvertActivity" />
     </application>
 
 </manifest>
