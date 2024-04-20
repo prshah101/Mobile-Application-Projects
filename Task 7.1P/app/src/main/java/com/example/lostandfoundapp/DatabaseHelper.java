@@ -92,4 +92,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return adverts;
     }
+
+    public boolean removeAdvertByName(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Define the where clause
+        String whereClause = COLUMN_NAME + "=?";
+        // Define the arguments for the where clause
+        String[] whereArgs = {name};
+        // Execute the delete query
+        int rowsDeleted = db.delete(ADVERTS_TABLE, whereClause, whereArgs);
+        // Return true if at least one row was deleted, false otherwise
+        return rowsDeleted > 0;
+    }
 }
