@@ -1,6 +1,7 @@
 package com.example.lostandfoundapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lostandfoundapp.Advert;
 import com.example.lostandfoundapp.R;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -35,6 +37,22 @@ public class AdvertsAdapter extends RecyclerView.Adapter<AdvertsAdapter.AdvertVi
     public void onBindViewHolder(@NonNull AdvertViewHolder holder, int position) {
         Advert advert = adverts.get(position);
         holder.bind(advert);
+
+
+        // Set click listener for the card
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RemoveAdvertActivity.class);
+                // Retrieve the text from nameTextView
+                String name = holder.nameTextView.getText().toString();
+                intent.putExtra("Name", name);
+                // Retrieve the text from nameTextView
+                String lost = holder.isLostTextView.getText().toString();
+                intent.putExtra("Lost", lost);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -47,10 +65,13 @@ public class AdvertsAdapter extends RecyclerView.Adapter<AdvertsAdapter.AdvertVi
         private TextView nameTextView;
         private TextView isLostTextView;
 
+        private MaterialCardView card;
+
         public AdvertViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.postTypeItemTv);
             isLostTextView = itemView.findViewById(R.id.postItemTv);
+            card = itemView.findViewById(R.id.card);
         }
 
         public void bind(Advert advert) {

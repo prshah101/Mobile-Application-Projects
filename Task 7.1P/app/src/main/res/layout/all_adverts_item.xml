@@ -10,6 +10,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="#FFFFFF"
