@@ -1,6 +1,8 @@
 package com.example.lostandfoundapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ public class AllAdvertsActivity extends AppCompatActivity {
     RecyclerView allItemsRv;
     LinearLayoutManager linearLayoutManager;
     AdvertsAdapter advertsAdapter;
+    Button backBtn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class AllAdvertsActivity extends AppCompatActivity {
         setContentView(R.layout.all_adverts);
 
         allItemsRv = findViewById(R.id.allItemsRv);
+        backBtn2= findViewById(R.id.backBtn2);
 
         // Initialize the LinearLayoutManager
         linearLayoutManager = new LinearLayoutManager(this);
@@ -35,5 +39,15 @@ public class AllAdvertsActivity extends AppCompatActivity {
         // Create and set the AdvertsAdapter
         advertsAdapter = new AdvertsAdapter(adverts, this);
         allItemsRv.setAdapter(advertsAdapter);
+
+        // Set OnClickListener for back button
+        backBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllAdvertsActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

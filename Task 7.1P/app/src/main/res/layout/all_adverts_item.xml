@@ -9,15 +9,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_border"
-            app:contentPadding="10dp">
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="0dp"
+            app:contentPadding="10dp"
+            app:strokeColor="#000000"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -25,15 +29,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/postItemTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Post Item" />
+                    android:text="Post Item"
+                    android:textSize="18sp" />
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

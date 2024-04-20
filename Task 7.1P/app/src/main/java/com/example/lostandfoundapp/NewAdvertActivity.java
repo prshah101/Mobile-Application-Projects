@@ -1,5 +1,6 @@
 package com.example.lostandfoundapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,8 @@ public class NewAdvertActivity extends AppCompatActivity {
 
     private Button saveBtn;
 
+    private Button backBtn1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,7 @@ public class NewAdvertActivity extends AppCompatActivity {
         dateEt = findViewById(R.id.dateEt);
         locationEt = findViewById(R.id.locationEt);
         saveBtn = findViewById(R.id.saveBtn);
+        backBtn1 = findViewById(R.id.backBtn1);
 
 
         // Set OnClickListener for save button
@@ -57,6 +61,15 @@ public class NewAdvertActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addAdvertToDatabase();
+            }
+        });
+
+        // Set OnClickListener for back button
+        backBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewAdvertActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
