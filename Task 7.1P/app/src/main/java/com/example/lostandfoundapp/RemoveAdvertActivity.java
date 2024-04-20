@@ -36,7 +36,7 @@ public class RemoveAdvertActivity extends AppCompatActivity {
         backBtn3 = findViewById(R.id.backBtn3);
 
         postTypeItemTv2.setText(lost);
-        postTypeItemTv2.setText(name);
+        postItemTv2.setText(name);
 
         // Set OnClickListener for remove button
         removeBtn.setOnClickListener(new View.OnClickListener() {

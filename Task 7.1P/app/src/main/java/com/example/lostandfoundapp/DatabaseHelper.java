@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table and column names for Adverts
     public static final String ADVERTS_TABLE = "ADVERTS_TABLE";
+    public static final String COLUMN_ID = "ID"; // Added column for advert_id
     public static final String COLUMN_NAME = "NAME";
     public static final String COLUMN_PHONE = "PHONE";
     public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
@@ -34,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Create Adverts table
         String createTableStatement = "CREATE TABLE " + ADVERTS_TABLE + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // Added ID with AUTOINCREMENT
                 COLUMN_NAME + " TEXT, " +
                 COLUMN_PHONE + " INTEGER, " +
                 COLUMN_DESCRIPTION + " TEXT, " +
@@ -74,12 +76,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                String name = cursor.getString(0);
-                Integer phone = cursor.getInt(1);
-                String description = cursor.getString(2);
-                String dateString = cursor.getString(3);
-                String location = cursor.getString(4);
-                boolean isLost = cursor.getInt(5) == 1;
+                String name = cursor.getString(1);
+                Integer phone = cursor.getInt(2);
+                String description = cursor.getString(3);
+                String dateString = cursor.getString(4);
+                String location = cursor.getString(5);
+                boolean isLost = cursor.getInt(6) == 1;
 
                 // Create Advert object and add to list
                 Advert advert = new Advert(name, phone, description, dateString, location, isLost);

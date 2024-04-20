@@ -69,8 +69,8 @@ public class AdvertsAdapter extends RecyclerView.Adapter<AdvertsAdapter.AdvertVi
 
         public AdvertViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.postTypeItemTv);
-            isLostTextView = itemView.findViewById(R.id.postItemTv);
+            isLostTextView = itemView.findViewById(R.id.postTypeItemTv);
+            nameTextView = itemView.findViewById(R.id.postItemTv);
             card = itemView.findViewById(R.id.card);
         }
 
