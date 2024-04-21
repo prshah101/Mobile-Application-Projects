@@ -188,11 +188,12 @@
                 app:strokeColor="#000000"
                 app:strokeWidth="1dp">
 
-                <EditText
-                    android:id="@+id/dateEt"
+                <TextView
+                    android:id="@+id/dateUserTv"
                     android:layout_width="340dp"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textSize="18sp"/>
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.cardview.widget.CardView>

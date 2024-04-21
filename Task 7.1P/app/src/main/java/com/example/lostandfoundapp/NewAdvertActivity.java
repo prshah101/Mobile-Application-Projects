@@ -1,9 +1,11 @@
 package com.example.lostandfoundapp;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -19,7 +21,9 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class NewAdvertActivity extends AppCompatActivity {
 
@@ -30,12 +34,14 @@ public class NewAdvertActivity extends AppCompatActivity {
     private EditText nameEt;
     private EditText phoneEt;
     private EditText descriptionEt;
-    private EditText dateEt;
+    private TextView dateUserTv;
     private EditText locationEt;
 
     private Button saveBtn;
 
     private Button backBtn1;
+
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +56,21 @@ public class NewAdvertActivity extends AppCompatActivity {
         nameEt = findViewById(R.id.nameEt);
         phoneEt = findViewById(R.id.phoneEt);
         descriptionEt = findViewById(R.id.descriptionEt);
-        dateEt = findViewById(R.id.dateEt);
+        dateUserTv = findViewById(R.id.dateUserTv);
         locationEt = findViewById(R.id.locationEt);
         saveBtn = findViewById(R.id.saveBtn);
         backBtn1 = findViewById(R.id.backBtn1);
 
+        // Initialize Calendar instance
+        calendar = Calendar.getInstance();
+
+        // Set OnClickListener for the date EditText field
+        dateUserTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
 
         // Set OnClickListener for save button, then the advert is added to the database (if proper values were entered by user)
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,13 +92,36 @@ public class NewAdvertActivity extends AppCompatActivity {
 
     }
 
+    // Method to show DatePickerDialog
+    private void showDatePickerDialog() {
+        // Create a DatePickerDialog and set the current date as default
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Set the selected date in the EditText field
+                        calendar.set(year, monthOfYear, dayOfMonth);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                        String selectedDate = dateFormat.format(calendar.getTime());
+                        dateUserTv.setText(selectedDate);
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        // Show the DatePickerDialog
+        datePickerDialog.show();
+    }
+
 
     // Method to add an advert to the database by managing user inputs
     private void addAdvertToDatabase() {
         String name = nameEt.getText().toString().trim();
         String phoneString = phoneEt.getText().toString().trim();
         String description = descriptionEt.getText().toString().trim();
-        String dateString = dateEt.getText().toString().trim(); // Assuming date format is entered correctly
+        String dateString = dateUserTv.getText().toString().trim(); // Assuming date format is entered correctly
         String location = locationEt.getText().toString().trim();
         boolean isLost = lostBtn.isChecked();
 
@@ -119,7 +158,7 @@ public class NewAdvertActivity extends AppCompatActivity {
                 nameEt.setText("");
                 phoneEt.setText("");
                 descriptionEt.setText("");
-                dateEt.setText("");
+                dateUserTv.setText("");
                 locationEt.setText("");
             } else {
                 Toast.makeText(this, "Failed to add advert", Toast.LENGTH_SHORT).show();
