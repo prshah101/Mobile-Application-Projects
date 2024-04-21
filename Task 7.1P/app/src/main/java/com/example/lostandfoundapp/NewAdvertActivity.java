@@ -136,32 +136,24 @@ public class NewAdvertActivity extends AppCompatActivity {
             try {
                 // Try parsing phoneString to integer
                 phone = Integer.parseInt(phoneString);
+                //Create instance of DatabaseHelper
+                DatabaseHelper databaseHelper = new DatabaseHelper(NewAdvertActivity.this);
+                // Add advert to the database
+                boolean success = databaseHelper.addOneAdvert(new Advert(name, phone, description, dateString, location, isLost));
+                if (success) {
+                    Toast.makeText(this, "Advert added successfully", Toast.LENGTH_SHORT).show();
+                    // Clear input fields after successful addition
+                    nameEt.setText("");
+                    phoneEt.setText("");
+                    descriptionEt.setText("");
+                    dateUserTv.setText("");
+                    locationEt.setText("");
+                } else {
+                    Toast.makeText(this, "Failed to add advert", Toast.LENGTH_SHORT).show();
+                }
             } catch (NumberFormatException e) {
                 // Handle the case where phoneString cannot be parsed to an integer
                 Toast.makeText(this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
-            }
-            //Check that the date is in the correct format
-            Date date = null;
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                date = dateFormat.parse(dateString);
-            } catch (ParseException e) {
-                Toast.makeText(this, "Please enter a valid date", Toast.LENGTH_SHORT).show();
-            }
-            //Create instance of DatabaseHelper
-            DatabaseHelper databaseHelper = new DatabaseHelper(NewAdvertActivity.this);
-            // Add advert to the database
-            boolean success = databaseHelper.addOneAdvert(new Advert(name, phone, description, dateString, location, isLost));
-            if (success) {
-                Toast.makeText(this, "Advert added successfully", Toast.LENGTH_SHORT).show();
-                // Clear input fields after successful addition
-                nameEt.setText("");
-                phoneEt.setText("");
-                descriptionEt.setText("");
-                dateUserTv.setText("");
-                locationEt.setText("");
-            } else {
-                Toast.makeText(this, "Failed to add advert", Toast.LENGTH_SHORT).show();
             }
         }
     }

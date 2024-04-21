@@ -29,6 +29,9 @@ public class AllAdvertsActivity extends AppCompatActivity {
         // Initialize UI elements
         allItemsRv = findViewById(R.id.allItemsRv);
         backBtn2= findViewById(R.id.backBtn2);
+        // Get reference to noAdvertsTv TextView
+        TextView noAdvertsTv = findViewById(R.id.noAdvertsTv);
+
 
         // Initialize the LinearLayoutManager
         linearLayoutManager = new LinearLayoutManager(this);
@@ -37,6 +40,15 @@ public class AllAdvertsActivity extends AppCompatActivity {
         // Retrieve all adverts from the database, using an instance of databaseHelper
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         List<Advert> adverts = databaseHelper.getAllAdverts();
+
+        // Check if the list of adverts is empty
+        if (adverts.isEmpty()) {
+            // If the list is empty, show the TextView of message that no adverts are in the database
+            noAdvertsTv.setVisibility(View.VISIBLE);
+        } else {
+            // If the list is not empty, hide the TextView
+            noAdvertsTv.setVisibility(View.GONE);
+        }
 
         // Create and set the AdvertsAdapter
         advertsAdapter = new AdvertsAdapter(adverts, this);
