@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Initialize views
+        // Initialize UI elements
         titleTv = findViewById(R.id.titleTv);
         createBtn = findViewById(R.id.createBtn);
         showBtn = findViewById(R.id.showBtn);
 
-        // Set OnClickListener for create button
+        // Set OnClickListener for create button, that leads to the activity where a new advert can  be created
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for show button
+        // Set OnClickListener for show button, this leads to the activity where all the adverts shown
         showBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

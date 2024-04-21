@@ -10,14 +10,16 @@ import androidx.annotation.Nullable;
 
 import com.example.lostandfoundapp.Advert;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table and column names for Adverts
     public static final String ADVERTS_TABLE = "ADVERTS_TABLE";
-    public static final String COLUMN_ID = "ID"; // Added column for advert_id
+    public static final String COLUMN_ID = "ID";
     public static final String COLUMN_NAME = "NAME";
     public static final String COLUMN_PHONE = "PHONE";
     public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
@@ -59,7 +61,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_NAME, advert.getName());
         cv.put(COLUMN_PHONE, advert.getPhone());
         cv.put(COLUMN_DESCRIPTION, advert.getDescription());
-        cv.put(COLUMN_DATE, advert.getDate().toString());
+
+        // Add the date in the correct format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(advert.getDate());
+        cv.put(COLUMN_DATE, formattedDate);
+
+
         cv.put(COLUMN_LOCATION, advert.getLocation());
         cv.put(COLUMN_IS_LOST, advert.isLost() ? 1 : 0);
 

@@ -26,6 +26,7 @@ public class AllAdvertsActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.all_adverts);
 
+        // Initialize UI elements
         allItemsRv = findViewById(R.id.allItemsRv);
         backBtn2= findViewById(R.id.backBtn2);
 
@@ -33,7 +34,7 @@ public class AllAdvertsActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         allItemsRv.setLayoutManager(linearLayoutManager);
 
-        // Retrieve all adverts from the database
+        // Retrieve all adverts from the database, using an instance of databaseHelper
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         List<Advert> adverts = databaseHelper.getAllAdverts();
 
@@ -41,7 +42,7 @@ public class AllAdvertsActivity extends AppCompatActivity {
         advertsAdapter = new AdvertsAdapter(adverts, this);
         allItemsRv.setAdapter(advertsAdapter);
 
-        // Set OnClickListener for back button
+        // Set OnClickListener for back button, which enables user to go back to the Main Activity
         backBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

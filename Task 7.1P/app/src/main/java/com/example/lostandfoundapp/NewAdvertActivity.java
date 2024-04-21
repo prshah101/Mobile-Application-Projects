@@ -56,7 +56,7 @@ public class NewAdvertActivity extends AppCompatActivity {
         backBtn1 = findViewById(R.id.backBtn1);
 
 
-        // Set OnClickListener for save button
+        // Set OnClickListener for save button, then the advert is added to the database (if proper values were entered by user)
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +64,7 @@ public class NewAdvertActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for back button
+        // Set OnClickListener for the back button. which leads back to the Main activity page
         backBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +77,7 @@ public class NewAdvertActivity extends AppCompatActivity {
     }
 
 
-    // Method to add an advert to the database
+    // Method to add an advert to the database by managing user inputs
     private void addAdvertToDatabase() {
         String name = nameEt.getText().toString().trim();
         String phoneString = phoneEt.getText().toString().trim();
@@ -93,6 +93,7 @@ public class NewAdvertActivity extends AppCompatActivity {
             Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
         }else {
             int phone = 0;
+            //Check that the phone number is in the correct format
             try {
                 // Try parsing phoneString to integer
                 phone = Integer.parseInt(phoneString);
@@ -100,7 +101,7 @@ public class NewAdvertActivity extends AppCompatActivity {
                 // Handle the case where phoneString cannot be parsed to an integer
                 Toast.makeText(this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
             }
-
+            //Check that the date is in the correct format
             Date date = null;
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -108,7 +109,7 @@ public class NewAdvertActivity extends AppCompatActivity {
             } catch (ParseException e) {
                 Toast.makeText(this, "Please enter a valid date", Toast.LENGTH_SHORT).show();
             }
-
+            //Create instance of DatabaseHelper
             DatabaseHelper databaseHelper = new DatabaseHelper(NewAdvertActivity.this);
             // Add advert to the database
             boolean success = databaseHelper.addOneAdvert(new Advert(name, phone, description, dateString, location, isLost));

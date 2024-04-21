@@ -37,6 +37,7 @@ public class RemoveAdvertActivity extends AppCompatActivity {
         String name = getIntent().getStringExtra("Name");
         String lost = getIntent().getStringExtra("Lost");
 
+        // Initialize UI elements
         postTypeItemTv2 = findViewById(R.id.postTypeItemTv2);
         postItemTv2 = findViewById(R.id.postItemTv2);
         dateTv2 = findViewById(R.id.dateTv2);
@@ -44,31 +45,40 @@ public class RemoveAdvertActivity extends AppCompatActivity {
         removeBtn = findViewById(R.id.removeBtn);
         backBtn3 = findViewById(R.id.backBtn3);
 
+        //Set the Text View elements with the values from the previous activity, which is the AllAdvertActivity
         postTypeItemTv2.setText(lost);
         postItemTv2.setText(name);
 
+        //Create a new instance of DatabaseHelper
         DatabaseHelper databaseHelper = new DatabaseHelper(RemoveAdvertActivity.this);
 
+        //Se the location Text View to the location of the advert retrieved from the database using the name value
         Advert selectedAdvert = databaseHelper.getAdvertByName(postItemTv2.getText().toString());
         locationTv2.setText(selectedAdvert.getLocation());
 
+        //Save the date value of that advert retrieved from the database
         Date selectedAdvertDate = selectedAdvert.getDate();
-        Date currentDate = Calendar.getInstance().getTime();//getting current date
+        //Get the current date
+        Date currentDate = Calendar.getInstance().getTime();
 
         // Calculate the difference in milliseconds
         long differenceMillis = currentDate.getTime() - selectedAdvertDate.getTime();
         // Convert milliseconds to days
         long differenceDays = differenceMillis / (1000 * 60 * 60 * 24);
+        //Set the date Text View to display the amount of days ago (in terms of the advert date and the current date) that the post was made
         dateTv2.setText(String.valueOf(differenceDays) + " days ago");
 
         // Set OnClickListener for remove button
         removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Assuming you have a DatabaseHelper instance named dbHelper
+                //Remove the advert using the name
                 boolean removed = databaseHelper.removeAdvertByName(postItemTv2.getText().toString());
                 if (removed) {
                     Toast.makeText(getApplicationContext(), "Advert removed successfully", Toast.LENGTH_SHORT).show();
+                    //Go back to previous page.
+                    Intent intent = new Intent(RemoveAdvertActivity.this, AllAdvertsActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Failed to remove advert", Toast.LENGTH_SHORT).show();
 
@@ -76,7 +86,7 @@ public class RemoveAdvertActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for back button
+        // Set OnClickListener for back button, this will take the user back to the All Adverts Activity.
         backBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

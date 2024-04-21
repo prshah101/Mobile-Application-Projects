@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//This class defines the variables of an Advert Object
 public class Advert {
     private String name;
     private int phone;
@@ -25,7 +26,8 @@ public class Advert {
     // Method to parse date string into Date object
     private Date parseDate(String dateString) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"); // Specify the date format
+            //SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy"); // Specify the date format
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // Specify the date format
             return sdf.parse(dateString); // Parse the date string
         } catch (ParseException e) {
             e.printStackTrace();
