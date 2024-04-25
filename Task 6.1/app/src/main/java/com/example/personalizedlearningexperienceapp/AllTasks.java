@@ -10,10 +10,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.personalizedlearningexperienceapp.Models.QuizResponse;
 import com.example.personalizedlearningexperienceapp.Models.Todo;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +41,7 @@ public class AllTasks extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv2);
 
         listView = findViewById(R.id.todosList);
-        ArrayAdapter<Todo> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        //ArrayAdapter<Todo> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
 
         // Retrieve selected news ID and source information from SignUp page
         String username = getIntent().getStringExtra("username");
@@ -49,23 +52,25 @@ public class AllTasks extends AppCompatActivity {
 
     private void fetchData() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:5000/")
+                .baseUrl("https://128.199.89.150:5000/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(new OkHttpClient.Builder().readTimeout(10, java.util.concurrent.TimeUnit.MINUTES).build()) // this will set the read timeout for 10mins (IMPORTANT: If not your request will exceed the default read timeout)
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
-        Call<List<Todo>> call = apiService.getTodos();
-        call.enqueue(new Callback<List<Todo>>() {
+        Call<QuizResponse> call = apiService.getQuiz();
+        call.enqueue(new Callback<QuizResponse>() {
 
-            ArrayAdapter<Todo> arrayAdapter = new ArrayAdapter<>(AllTasks.this, android.R.layout.simple_list_item_1);
+            ArrayAdapter<QuizResponse> arrayAdapter = new ArrayAdapter<>(AllTasks.this, android.R.layout.simple_list_item_1);
             @Override
-            public void onResponse(Call<List<Todo>> call, Response<List<Todo>> response) {
+            public void onResponse(Call<QuizResponse> call, Response<QuizResponse> response) {
+                Log.i("Anything", response.body().toString());
                 arrayAdapter.addAll(response.body());
                 listView.setAdapter(arrayAdapter);
-                Toast.makeText(AllTasks.this, "Todos fetched successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AllTasks.this, "Quiz fetched successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<List<Todo>> call, Throwable t) {
+            public void onFailure(Call<QuizResponse> call, Throwable t) {
                 Toast.makeText(AllTasks.this, "Error fetching data", Toast.LENGTH_SHORT).show();
             }
         });

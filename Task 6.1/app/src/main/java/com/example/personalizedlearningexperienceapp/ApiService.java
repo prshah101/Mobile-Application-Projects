@@ -8,6 +8,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ApiService {
-    @GET("getQuiz")
+    @GET("getQuiz?topic=Android%20Development")
     Call<QuizResponse> getQuiz();
 }

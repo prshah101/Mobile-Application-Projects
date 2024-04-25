@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(MainActivity.this, AllTasks.class);
+        startActivity(intent);
+
         usernameEnter = findViewById(R.id.usernameEnter);
         passwordEnter = findViewById(R.id.passwordEnter);
         loginBtn = findViewById(R.id.loginBtn);
