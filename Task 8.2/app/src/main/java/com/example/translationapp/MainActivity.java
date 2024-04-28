@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseTranslator englishGermanTranslator;
 
     private static final int REQUEST_PERMISSION_CODE = 1;
-    int languageCode, fromLanguageCode, toLanguageCode = 8;
+    int languageCode, fromLanguageCode, toLanguageCode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         Spinner fromSpinner = findViewById(R.id.idFromSpinner);
         Spinner toSpinner = findViewById(R.id.idToSpinner);
+        edtLanguage = findViewById(R.id.idEdtLanguage);
+
+        Button translateLanguageBtn = findViewById(R.id.idBtnTranslateLanguage);
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -99,36 +102,34 @@ public class MainActivity extends AppCompatActivity {
 //        // for firebase natural language.
 //        englishGermanTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
 //
-//        // on below line we are initializing our variables.
-//        edtLanguage = findViewById(R.id.idEdtLanguage);
 //        translateLanguageTV = findViewById(R.id.idTVTranslatedLanguage);
-//        translateLanguageBtn = findViewById(R.id.idBtnTranslateLanguage);
 //
 //        // adding on click listener for button
-//        translateLanguageBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //translatedTV.setText("");
-//                if (edtLanguage.getText().toString().isEmpty()) {
-//                    Toast.makeText(MainActivity.this, "Please enter your text to translate", Toast.LENGTH_SHORT).show();
-//                } else if(fromLanguageCode == 0) {
-//                    Toast.makeText(MainActivity.this, "Please select language of the input text", Toast.LENGTH_SHORT).show();
-//                } else if(toLanguageCode == 0) {
-//                    Toast.makeText(MainActivity.this, "Please select the language to translation into", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
+        translateLanguageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //translatedTV.setText("");
+                //Toast.makeText(MainActivity.this, Integer.toString(fromLanguageCode), Toast.LENGTH_SHORT).show();
+                if (edtLanguage.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter your text to translate", Toast.LENGTH_SHORT).show();
+                } else if(fromLanguageCode == 0) {
+                    Toast.makeText(MainActivity.this, "Please select language of the input text", Toast.LENGTH_SHORT).show();
+                } else if(toLanguageCode == 0) {
+                    Toast.makeText(MainActivity.this, "Please select the language to translate into", Toast.LENGTH_SHORT).show();
+                }
+                else{
 //                    // calling method to download language
 //                    // modal to which we have to translate.
 //                    String string = edtLanguage.getText().toString();
 //                    downloadModal(string);
-//                }
-//            }
-//        });
+                }
+            }
+        });
     }
 
     public int getLanguageCode(String language) {
 
-        int languageCode = 8;
+        int languageCode = 0;
 
         switch (language) {
 
