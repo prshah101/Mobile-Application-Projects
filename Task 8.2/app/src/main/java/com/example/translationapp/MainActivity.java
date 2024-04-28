@@ -1,6 +1,8 @@
 package com.example.translationapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,20 +24,25 @@ import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguag
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslator;
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     // creating variables for our image view,
     // text view and two buttons.
-    private EditText edtLanguage;
-    private TextView translateLanguageTV;
-    private Button translateLanguageBtn;
+    EditText edtLanguage;
+    TextView translatedTV;
+    Button translateLanguageBtn;
 
     //String[] fromlanguage = LanguageOptions.fromlanguage;
     //String[] tolanguage = LanguageOptions.tolanguage;
 
-    String[] fromLanguages = {"From", "English", "Afrikaans", "Arabic", "Belarusian", "Bulgarian", "Bengali", "Catalan", "Czech", "Welsh", "Hindi", "Urdu"};
+    //https://firebaseopensource.com/projects/firebase/firebaseui-web/languages/
+    //https://firebase.google.com/docs/reference/android/com/google/firebase/ml/naturallanguage/translate/FirebaseTranslateLanguage
+    String[] fromLanguages = {"From", "English","Arabic", "Bulgarian", "Catalan", "Czech", "Hindi", "Farsi", "French", "Japanese", "Spanish", "Turkish", "Chinese"};
 
-    String[] toLanguages = {"To", "English", "Afrikaans", "Arabic", "Belarusian", "Bulgarian", "Bengali", "Catalan", "Czech", "Welsh", "Hindi", "Urdu"};
+    String[] toLanguages = {"To", "English","Arabic", "Bulgarian", "Catalan", "Czech", "Hindi", "Farsi", "French", "Japanese", "Spanish", "Turkish", "Chinese"};
 
     // create a variable for our
     // firebase language translator.
@@ -51,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Spinner fromSpinner = findViewById(R.id.idFromSpinner);
         Spinner toSpinner = findViewById(R.id.idToSpinner);
         edtLanguage = findViewById(R.id.idEdtLanguage);
+        translatedTV = findViewById(R.id.idTVTranslatedLanguage);
 
         Button translateLanguageBtn = findViewById(R.id.idBtnTranslateLanguage);
 
@@ -87,29 +96,14 @@ public class MainActivity extends AppCompatActivity {
 
         toAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         toSpinner.setAdapter(toAdapter);
-        //
 
-//        // on below line we are creating our firebase translate option.
-//        FirebaseTranslatorOptions options =
-//                new FirebaseTranslatorOptions.Builder()
-//                        // below line we are specifying our source language.
-//                        .setSourceLanguage(FirebaseTranslateLanguage.EN)
-//                        // in below line we are displaying our target language.
-//                        .setTargetLanguage(FirebaseTranslateLanguage.DE)
-//                        // after that we are building our options.
-//                        .build();
-//        // below line is to get instance
-//        // for firebase natural language.
-//        englishGermanTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
-//
-//        translateLanguageTV = findViewById(R.id.idTVTranslatedLanguage);
-//
 //        // adding on click listener for button
         translateLanguageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //translatedTV.setText("");
-                //Toast.makeText(MainActivity.this, Integer.toString(fromLanguageCode), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Input Language: " + Integer.toString(fromLanguageCode), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Output Language: " + Integer.toString(toLanguageCode), Toast.LENGTH_SHORT).show();
                 if (edtLanguage.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter your text to translate", Toast.LENGTH_SHORT).show();
                 } else if(fromLanguageCode == 0) {
@@ -118,13 +112,38 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Please select the language to translate into", Toast.LENGTH_SHORT).show();
                 }
                 else{
-//                    // calling method to download language
-//                    // modal to which we have to translate.
-//                    String string = edtLanguage.getText().toString();
-//                    downloadModal(string);
+                    translateText(fromLanguageCode, toLanguageCode, edtLanguage.getText().toString());
                 }
             }
         });
+
+//        micIV.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+//                i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to convert into text");
+//                try {
+//                    startActivityForResult(i, REQUEST_PERMISSION_CODE);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    Toast.makeText(MainActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                edtLanguage.setText(result.get(0));
+            }
+        }
     }
 
     public int getLanguageCode(String language) {
@@ -136,36 +155,37 @@ public class MainActivity extends AppCompatActivity {
             case "English":
                 languageCode = FirebaseTranslateLanguage.EN;
                 break;
-            case "Afrikaans":
-                languageCode = FirebaseTranslateLanguage.AF;
+            case "Chinese":
+                languageCode = FirebaseTranslateLanguage.ZH;
                 break;
-            case "Arabic":
-                languageCode = FirebaseTranslateLanguage.AR;
+            case "Farsi":
+                languageCode = FirebaseTranslateLanguage.FA;
                 break;
-            case "Belarusian":
-                languageCode = FirebaseTranslateLanguage.BE;
+            case "French":
+                languageCode = FirebaseTranslateLanguage.FR;
                 break;
-            case "Bengali":
-                languageCode = FirebaseTranslateLanguage.BN;
+            case "Japanese":
+                languageCode = FirebaseTranslateLanguage.JA;
+                break;
+            case "Spanish":
+                languageCode = FirebaseTranslateLanguage.ES;
+                break;
+            case "Turkish":
+                languageCode = FirebaseTranslateLanguage.TR;
                 break;
             case "Catalan":
                 languageCode = FirebaseTranslateLanguage.CA;
+                break;
+            case "Bulgarian":
+                languageCode = FirebaseTranslateLanguage.BG;
                 break;
 
             case "Czech":
                 languageCode = FirebaseTranslateLanguage.CS;
                 break;
 
-            case "Welsh":
-                languageCode = FirebaseTranslateLanguage.CY;
-                break;
-
             case "Hindi":
                 languageCode = FirebaseTranslateLanguage.HI;
-                break;
-
-            case "Urdu":
-                languageCode = FirebaseTranslateLanguage.UR;
                 break;
 
             default:
@@ -173,42 +193,38 @@ public class MainActivity extends AppCompatActivity {
         return languageCode;
     }
 
-    private void downloadModal(String input) {
-        // below line is use to download the modal which
-        // we will require to translate in german language
-        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().requireWifi().build();
+    private void translateText(int fromLanguageCode, int toLanguageCode, String source) {
+        translatedTV.setText("Downloading Modal..");
+        FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
+                .setSourceLanguage(fromLanguageCode)
+                .setTargetLanguage(toLanguageCode)
+                .build();
 
-        // below line is use to download our modal.
-        englishGermanTranslator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
+        FirebaseTranslator translator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
+        FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder().build();
+
+        translator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
-
-                // this method is called when modal is downloaded successfully.
-                Toast.makeText(MainActivity.this, "Please wait language modal is being downloaded.", Toast.LENGTH_SHORT).show();
-
-                // calling method to translate our entered text.
-                translateLanguage(input);
-
+            public void onSuccess(Void unused) {
+                translatedTV.setText("Translating..");
+                translator.translate(source).addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        translatedTV.setText(s);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Fail to translate: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, "Fail to download modal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Fail to download language Model " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void translateLanguage(String input) {
-        englishGermanTranslator.translate(input).addOnSuccessListener(new OnSuccessListener<String>() {
-            @Override
-            public void onSuccess(String s) {
-                translateLanguageTV.setText(s);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, "Fail to translate", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }
