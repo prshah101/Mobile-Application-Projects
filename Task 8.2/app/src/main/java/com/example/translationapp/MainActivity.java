@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     TextView translatedTV;
     Button translateLanguageBtn;
 
+    ImageView mic;
+
     //String[] fromlanguage = LanguageOptions.fromlanguage;
     //String[] tolanguage = LanguageOptions.tolanguage;
 
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         Spinner toSpinner = findViewById(R.id.idToSpinner);
         edtLanguage = findViewById(R.id.idEdtLanguage);
         translatedTV = findViewById(R.id.idTVTranslatedLanguage);
+        mic = findViewById(R.id.choseSpeaking);
 
         Button translateLanguageBtn = findViewById(R.id.idBtnTranslateLanguage);
 
@@ -117,25 +121,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        micIV.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-//                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-//                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-//                i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to convert into text");
-//                try {
-//                    startActivityForResult(i, REQUEST_PERMISSION_CODE);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    Toast.makeText(MainActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        mic.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+                i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to convert into text");
+                try {
+                    startActivityForResult(i, REQUEST_PERMISSION_CODE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_PERMISSION_CODE) {
@@ -187,14 +192,16 @@ public class MainActivity extends AppCompatActivity {
             case "Hindi":
                 languageCode = FirebaseTranslateLanguage.HI;
                 break;
-
+            case "Arabic":
+                languageCode = FirebaseTranslateLanguage.AR;
+                break;
             default:
         }
         return languageCode;
     }
 
     private void translateText(int fromLanguageCode, int toLanguageCode, String source) {
-        translatedTV.setText("Downloading Modal..");
+        translatedTV.setText("Downloading Model..");
         FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()
                 .setSourceLanguage(fromLanguageCode)
                 .setTargetLanguage(toLanguageCode)
