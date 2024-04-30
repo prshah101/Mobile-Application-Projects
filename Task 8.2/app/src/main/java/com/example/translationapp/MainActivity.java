@@ -30,26 +30,14 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    // creating variables for our image view,
-    // text view and two buttons.
     EditText edtLanguage;
     TextView translatedTV;
-    Button translateLanguageBtn;
 
     ImageView mic;
 
-    //String[] fromlanguage = LanguageOptions.fromlanguage;
-    //String[] tolanguage = LanguageOptions.tolanguage;
-
-    //https://firebaseopensource.com/projects/firebase/firebaseui-web/languages/
-    //https://firebase.google.com/docs/reference/android/com/google/firebase/ml/naturallanguage/translate/FirebaseTranslateLanguage
     String[] fromLanguages = {"From", "English","Arabic", "Bulgarian", "Catalan", "Czech", "Hindi", "Farsi", "French", "Japanese", "Spanish", "Turkish", "Chinese"};
 
     String[] toLanguages = {"To", "English","Arabic", "Bulgarian", "Catalan", "Czech", "Hindi", "Farsi", "French", "Japanese", "Spanish", "Turkish", "Chinese"};
-
-    // create a variable for our
-    // firebase language translator.
-    FirebaseTranslator englishGermanTranslator;
 
     private static final int REQUEST_PERMISSION_CODE = 1;
     int languageCode, fromLanguageCode, toLanguageCode = 0;
@@ -101,13 +89,10 @@ public class MainActivity extends AppCompatActivity {
         toAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         toSpinner.setAdapter(toAdapter);
 
-//        // adding on click listener for button
+        // Adding on click listener for button to initiate translating language
         translateLanguageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //translatedTV.setText("");
-                //Toast.makeText(MainActivity.this, "Input Language: " + Integer.toString(fromLanguageCode), Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, "Output Language: " + Integer.toString(toLanguageCode), Toast.LENGTH_SHORT).show();
                 if (edtLanguage.getText().toString().isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter your text to translate", Toast.LENGTH_SHORT).show();
                 } else if(fromLanguageCode == 0) {
@@ -121,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        //Enabling the mic image to recognize human speech.
         mic.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -140,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Use the input from the mic to set the text in editLanguage
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -151,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    //Retrieving the language code in Firebase for a chosen language
     public int getLanguageCode(String language) {
 
         int languageCode = 0;
@@ -188,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
             case "Czech":
                 languageCode = FirebaseTranslateLanguage.CS;
                 break;
-
             case "Hindi":
                 languageCode = FirebaseTranslateLanguage.HI;
                 break;
@@ -200,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         return languageCode;
     }
 
+    //Using Firebase to translate the language string
     private void translateText(int fromLanguageCode, int toLanguageCode, String source) {
         translatedTV.setText("Downloading Model..");
         FirebaseTranslatorOptions options = new FirebaseTranslatorOptions.Builder()

@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:text="Translator App"
+            android:text="Translatify"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -32,12 +32,15 @@
                 android:id="@+id/idFromSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="#6750A4"
                 android:padding="5dp" />
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 app:srcCompat="@drawable/arrow" />
 
             <Spinner
@@ -45,7 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="5dp"/>
+                android:background="#6750A4"
+                android:padding="5dp" />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -63,6 +67,7 @@
                 android:padding="5dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:background="@null"
                 />
 
             <ImageView
