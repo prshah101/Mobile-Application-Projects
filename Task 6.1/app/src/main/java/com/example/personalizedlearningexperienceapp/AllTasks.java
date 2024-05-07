@@ -11,8 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.personalizedlearningexperienceapp.Models.QuizResponse;
 import com.example.personalizedlearningexperienceapp.Models.Todo;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -30,6 +38,14 @@ public class AllTasks extends AppCompatActivity {
     TextView allTasksTitle3;
 
     ListView listView;
+
+
+    TextView textView;
+
+    String url = "https://www.google.com";
+    String arrayUrl = "https://jsonplaceholder.typicode.com/todos";
+    String objectUrl = "https://jsonplaceholder.typicode.com/todos/3";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +53,8 @@ public class AllTasks extends AppCompatActivity {
 
         allTasksTitle1 = findViewById(R.id.allTasksTitle1);
         allTasksTitle2 = findViewById(R.id.allTasksTitle2);
-        allTasksTitle3 = findViewById(R.id.allTasksTitle3);
-        RecyclerView recyclerView = findViewById(R.id.rv2);
+        //allTasksTitle3 = findViewById(R.id.allTasksTitle3);
+        textView = findViewById(R.id.allTasksTitle3);
 
         listView = findViewById(R.id.todosList);
         //ArrayAdapter<Todo> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
@@ -47,32 +63,61 @@ public class AllTasks extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
         allTasksTitle2.setText(username);
 
-        fetchData();
-    }
+        //fetchData();
 
-    private void fetchData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://128.199.89.150:5000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(new OkHttpClient.Builder().readTimeout(10, java.util.concurrent.TimeUnit.MINUTES).build()) // this will set the read timeout for 10mins (IMPORTANT: If not your request will exceed the default read timeout)
-                .build();
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<QuizResponse> call = apiService.getQuiz();
-        call.enqueue(new Callback<QuizResponse>() {
+        RequestQueue queue = Volley.newRequestQueue(this);
 
-            ArrayAdapter<QuizResponse> arrayAdapter = new ArrayAdapter<>(AllTasks.this, android.R.layout.simple_list_item_1);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                objectUrl,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            textView.setText(response.getString("title"));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public void onResponse(Call<QuizResponse> call, Response<QuizResponse> response) {
-                Log.i("Anything", response.body().toString());
-                arrayAdapter.addAll(response.body());
-                listView.setAdapter(arrayAdapter);
-                Toast.makeText(AllTasks.this, "Quiz fetched successfully", Toast.LENGTH_SHORT).show();
-            }
+            public void onErrorResponse(VolleyError error) {
 
-            @Override
-            public void onFailure(Call<QuizResponse> call, Throwable t) {
-                Toast.makeText(AllTasks.this, "Error fetching data", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+//    private void fetchData() {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("https://dummyjson.com/todos")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .client(new OkHttpClient.Builder().readTimeout(10, java.util.concurrent.TimeUnit.MINUTES).build()) // this will set the read timeout for 10mins (IMPORTANT: If not your request will exceed the default read timeout)
+//                .build();
+//
+//
+//        TodoRequest request = retrofit.create(TodoRequest.class);
+//        request.getTodos().enqueue(new Callback<TodoResponse>() {
+//            @Override
+//            public void onResponse(Call<TodoResponse> call, Response<TodoResponse> response) {
+//                if (response.isSuccessful()) {
+//                    TodoResponse todoResponse = response.body();
+//                    if (todoResponse != null) {
+//                        List<TodoResponse.TodoItem> todoItems = todoResponse.getTodos();
+//
+//                        RecyclerView recyclerView = findViewById(R.id.rv2);
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(AllTasks.this));
+//
+//                        MyAdapter adapter = new MyAdapter(todoItems);
+//                        recyclerView.setAdapter(adapter);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TodoResponse> call, Throwable t) {
+//                Toast.makeText(AllTasks.this, "Error fetching data", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 }

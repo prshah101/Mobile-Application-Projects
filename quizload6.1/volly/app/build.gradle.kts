@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.personalizedlearningexperienceapp"
+    namespace = "com.example.volly"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.personalizedlearningexperienceapp"
+        applicationId = "com.example.volly"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -34,10 +34,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-
-    implementation("de.hdodenhof:circleimageview:3.1.0")
-//    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-//    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.android.volley:volley:1.2.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
