@@ -44,13 +44,23 @@
         <androidx.cardview.widget.CardView
             android:layout_width="360dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#07FBF4"
+            app:contentPadding="6dp"
+            tools:cardCornerRadius="10dp"
             tools:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/notification_bell" />
 
             <TextView
                 android:id="@+id/allTasksTitle3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
                 android:text="You have 1 task due"
                 android:textColor="#000000"
                 android:textSize="20dp"
@@ -59,12 +69,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ListView
-            android:id="@+id/todosList"
-            android:layout_width="wrap_content"
+            android:layout_width="360dp"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

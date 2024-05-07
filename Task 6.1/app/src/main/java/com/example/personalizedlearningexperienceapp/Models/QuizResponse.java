@@ -3,18 +3,45 @@ package com.example.personalizedlearningexperienceapp.Models;
 import java.util.List;
 
 public class QuizResponse {
-    private List<QuizQuestion> quiz;
+    private List<QuizResults> results;
 
-    // Constructor
-    public QuizResponse() {
+    public List<QuizResults> getResults() {
+        return results;
     }
 
-    // Getter and Setter for quiz
-    public List<QuizQuestion> getQuiz() {
-        return quiz;
+    public static class QuizResults {
+        private String type;
+        private String difficulty;
+        private String category;
+        private String question;
+        private String correct_answer;
+        private List<String> incorrect_answers;
+
+
+        public String getType() {
+            return type;
+        }
+
+        public String getDifficulty() {
+            return difficulty;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public String getQuestion() {
+            return question;
+        }
+
+        public String getCorrect_answer() {
+            return correct_answer;
+        }
+
+        public List<String> getIncorrect_answers() {
+            return incorrect_answers;
+        }
+
     }
 
-    public void setQuiz(List<QuizQuestion> quiz) {
-        this.quiz = quiz;
-    }
 }
