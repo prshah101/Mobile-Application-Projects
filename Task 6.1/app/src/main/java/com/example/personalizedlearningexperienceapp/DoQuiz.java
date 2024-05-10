@@ -52,8 +52,7 @@ public class DoQuiz extends AppCompatActivity {
 
         // Retrieve the Intent
         Intent intent = getIntent();
-        // Check if the Intent contains extra data with the specified key
-        // Retrieve the ParcelableArrayList extra data
+        // Retrieve the SerialisedArrayList extra data
         ArrayList<QuizResponse.QuizResults> dataList = (ArrayList<QuizResponse.QuizResults>) intent.getSerializableExtra("selectedTopicData");
         allTasksTitle1.setText("Generated Task " + 1);
         allTasksTitle2.setText(String.format("About %s", dataList.get(1).getCategory()));

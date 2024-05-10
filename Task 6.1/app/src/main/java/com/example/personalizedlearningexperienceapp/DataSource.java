@@ -8,7 +8,7 @@ public class DataSource {
     // Method to get titles of top stories
     public static ArrayList<String> geTopics1() {
         ArrayList<String> titleDataSource = new ArrayList<>();
-        titleDataSource.add("Algorithms");
+        titleDataSource.add("Science:Computers");
         titleDataSource.add("Web Development");
         titleDataSource.add("Algorithms");
         titleDataSource.add("Web Development");
@@ -21,7 +21,7 @@ public class DataSource {
 
     public static ArrayList<String> geTopics2() {
         ArrayList<String> titleDataSource = new ArrayList<>();
-        titleDataSource.add("Data Structures");
+        titleDataSource.add("Science:Computers");
         titleDataSource.add("Testing");
         titleDataSource.add("Data Structures");
         titleDataSource.add("Testing");

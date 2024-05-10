@@ -39,7 +39,7 @@ public class AllTasks extends AppCompatActivity {
         allTasksTitle3 = findViewById(R.id.allTasksTitle13);
 
         // Retrieve selected news ID and source information from SignUp page
-        String username = getIntent().getStringExtra("selectedTopicData");
+        String username = getIntent().getStringExtra("username");
         allTasksTitle2.setText(username);
 
         fetchTriviaQuestions();
@@ -54,12 +54,12 @@ public class AllTasks extends AppCompatActivity {
                 response -> {
                     Log.d("MainActivity", "Response is: " + response);
                     QuizResponse quizResponse = new Gson().fromJson(response, QuizResponse.class);
-                    List<QuizResponse.QuizResults> todoItems = quizResponse.getResults();
+                    List<QuizResponse.QuizResults> todoTasks = quizResponse.getResults();
 
                     RecyclerView recyclerView = findViewById(R.id.rv2);
                     recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-                    TopicsAdapter adapter = new TopicsAdapter(todoItems);
+                    TopicsAdapter adapter = new TopicsAdapter(todoTasks);
                     recyclerView.setAdapter(adapter);
                 }, error -> Log.e("MainActivity", "That didn't work", error));
 
