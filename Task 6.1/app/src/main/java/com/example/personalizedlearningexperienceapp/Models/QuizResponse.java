@@ -1,5 +1,6 @@
 package com.example.personalizedlearningexperienceapp.Models;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class QuizResponse {
@@ -9,7 +10,7 @@ public class QuizResponse {
         return results;
     }
 
-    public static class QuizResults {
+    public static class QuizResults implements Serializable {
         private String type;
         private String difficulty;
         private String category;

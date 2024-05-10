@@ -20,7 +20,7 @@
             android:textStyle="bold">
 
             <TextView
-                android:id="@+id/allTasksTitle1"
+                android:id="@+id/allTasksTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -30,7 +30,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/allTasksTitle2"
+                android:id="@+id/allTasksTitle12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -57,7 +57,7 @@
                 app:srcCompat="@drawable/notification_bell" />
 
             <TextView
-                android:id="@+id/allTasksTitle3"
+                android:id="@+id/allTasksTitle13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"

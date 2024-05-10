@@ -29,21 +29,17 @@ public class AllTasks extends AppCompatActivity {
 
     TextView textView;
 
-    String url = "https://www.google.com";
-    String arrayUrl = "https://jsonplaceholder.typicode.com/todos";
-    String objectUrl = "https://jsonplaceholder.typicode.com/todos/3";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_tasks);
 
-        allTasksTitle1 = findViewById(R.id.allTasksTitle1);
-        allTasksTitle2 = findViewById(R.id.allTasksTitle2);
-        allTasksTitle3 = findViewById(R.id.allTasksTitle3);
+        allTasksTitle1 = findViewById(R.id.allTasksTitle);
+        allTasksTitle2 = findViewById(R.id.allTasksTitle12);
+        allTasksTitle3 = findViewById(R.id.allTasksTitle13);
 
         // Retrieve selected news ID and source information from SignUp page
-        String username = getIntent().getStringExtra("username");
+        String username = getIntent().getStringExtra("selectedTopicData");
         allTasksTitle2.setText(username);
 
         fetchTriviaQuestions();
@@ -52,7 +48,7 @@ public class AllTasks extends AppCompatActivity {
 
     private void fetchTriviaQuestions() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://opentdb.com/api.php?amount=10&category=18&type=multiple";
+        String url = "https://opentdb.com/api.php?amount=3&category=18&type=multiple";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -63,11 +59,12 @@ public class AllTasks extends AppCompatActivity {
                     RecyclerView recyclerView = findViewById(R.id.rv2);
                     recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-                    MyAdapter adapter = new MyAdapter(todoItems);
+                    TopicsAdapter adapter = new TopicsAdapter(todoItems);
                     recyclerView.setAdapter(adapter);
                 }, error -> Log.e("MainActivity", "That didn't work", error));
 
         queue.add(stringRequest);
+
     }
 
 }
