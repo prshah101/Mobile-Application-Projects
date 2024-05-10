@@ -65,10 +65,6 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
                     isSelectMode = false;
                 }
 
-//                // Print all the values in selectedIntrestsList
-//                for (String interest : selectedIntrestsList) {
-//                    Toast.makeText(holder.itemView.getContext(), interest, Toast.LENGTH_SHORT).show();
-//                }
             }
         });
 
