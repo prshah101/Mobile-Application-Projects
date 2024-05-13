@@ -7,18 +7,25 @@ import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.RequestQueue;
 
 import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+//import retrofit2.Call;
+//import retrofit2.Callback;
+//import retrofit2.Response;
+//import retrofit2.Retrofit;
+//import retrofit2.converter.gson.GsonConverterFactory;
 
-//import com.android.volley.Request;
-//import com.android.volley.RequestQueue;
-//import com.android.volley.toolbox.StringRequest;
-//import com.android.volley.toolbox.Volley;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import java.util.List;
 
 public class Chat extends AppCompatActivity {
     private Button loginBtn;
@@ -34,31 +41,23 @@ public class Chat extends AppCompatActivity {
     }
 
     private void fetchChatDetails() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(new OkHttpClient.Builder().readTimeout(10, java.util.concurrent.TimeUnit.MINUTES).build()) // this will set the read timeout for 10mins (IMPORTANT: If not your request will exceed the default read timeout)
-                .build();
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://opentdb.com/api.php?amount=3&category=18&type=multiple";
 
-        ToChatRequest request = retrofit.create(ToChatRequest.class);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    Log.d("MainActivity", "Response is: " + response);
+                    ChatResponse quizResponse = new Gson().fromJson(response, ChatResponse.class);
+                    List<ChatResponse.ChatHistory> todoTasks = quizResponse.getChatHistory();
 
-        //Call<Void> call = ToChatRequest.postData(requestBody);
-        //Call<ChatResponse> call = ToChatRequest.getData();
-        call.enqueue(new Callback<ChatResponse>() {
-            @Override
-            public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
-                if (response.isSuccessful()) {
-                    ChatResponse data = response.body();
-                    // Do something with the data
-                }
-            }
+                    RecyclerView recyclerView = findViewById(R.id.rv2);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            @Override
-            public void onFailure(Call<ChatResponse> call, Throwable t) {
-                // Handle failure
-                Log.e("Chat.java", "Failed to Fetch Data", t);
-            }
-        });
+                    ChatAdapter adapter = new ChatAdapter(todoTasks);
+                    recyclerView.setAdapter(adapter);
+                }, error -> Log.e("MainActivity", "That didn't work", error));
+
+        queue.add(stringRequest);
 
     }
 }

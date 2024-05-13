@@ -9,15 +9,9 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/chatTv"
+            android:id="@+id/chat2tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:text="TextView" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
