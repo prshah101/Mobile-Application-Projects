@@ -9,6 +9,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -36,6 +39,26 @@ public class Chat extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(new OkHttpClient.Builder().readTimeout(10, java.util.concurrent.TimeUnit.MINUTES).build()) // this will set the read timeout for 10mins (IMPORTANT: If not your request will exceed the default read timeout)
                 .build();
-        
+
+        ToChatRequest request = retrofit.create(ToChatRequest.class);
+
+        //Call<Void> call = ToChatRequest.postData(requestBody);
+        //Call<ChatResponse> call = ToChatRequest.getData();
+        call.enqueue(new Callback<ChatResponse>() {
+            @Override
+            public void onResponse(Call<ChatResponse> call, Response<ChatResponse> response) {
+                if (response.isSuccessful()) {
+                    ChatResponse data = response.body();
+                    // Do something with the data
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChatResponse> call, Throwable t) {
+                // Handle failure
+                Log.e("Chat.java", "Failed to Fetch Data", t);
+            }
+        });
+
     }
 }
