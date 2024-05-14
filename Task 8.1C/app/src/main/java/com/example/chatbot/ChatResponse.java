@@ -18,6 +18,12 @@ public class ChatResponse {
         private String User;
         private String Llama;
 
+        // Constructor
+        public ChatHistory(String user, String llama) {
+            this.User = user;
+            this.Llama = llama;
+        }
+
         public String getUser() {
             return User;
         }

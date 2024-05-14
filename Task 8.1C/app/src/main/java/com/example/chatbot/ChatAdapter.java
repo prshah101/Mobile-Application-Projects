@@ -36,7 +36,6 @@ class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyHolder> {
         // Bind data to views
         ChatResponse.ChatHistory item = data.get(position);
         holder.chat2tv.setText(item.getLlama());
-        holder.generatedTaskDesc.setText("About " + item.getCategory());
 
     }
 
