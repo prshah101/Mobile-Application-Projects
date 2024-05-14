@@ -131,7 +131,11 @@ public class DoQuiz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DoQuiz.this, QuizResults.class);
+                intent.putExtra("question1", questionTv.getText());
+                intent.putExtra("question1correctanswer", option1.getText());
                 intent.putExtra("choice1", choice1);
+                intent.putExtra("question2", questionTv2.getText());
+                intent.putExtra("question2correctanswer", option11.getText());
                 intent.putExtra("choice2", choice2);
                 startActivity(intent);
             }

@@ -89,7 +89,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="15dp"
                         android:layout_marginBottom="7dp"
                         android:text="Question 1"
                         android:textColor="@color/white"
@@ -101,7 +100,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="5dp"
-                        android:text="Question 1"
+                        android:text="Result"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/explainTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="5dp"
+                        android:text="Explanation"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -142,7 +151,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="15dp"
                         android:layout_marginBottom="5dp"
                         android:text="Question 2"
                         android:textColor="@color/white"
@@ -154,7 +162,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="5dp"
-                        android:text="Question 1"
+                        android:text="Result"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/explainTv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="5dp"
+                        android:text="Explanation"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
