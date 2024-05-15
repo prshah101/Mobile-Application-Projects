@@ -2,26 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#3CEDE8"
-        app:cardCornerRadius="20dp"
-        app:contentPadding="25dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/userMessageTextView"
-            android:layout_width="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circularImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="310dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/user"
+            app:civ_circle_background_color="#3CEDE8"
+            tools:civ_border_color="#3CEDE8"
+            tools:civ_border_width="dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="TextView"
-            android:textColor="#000000"
-            android:textSize="18sp" />
-    </androidx.cardview.widget.CardView>
+            android:layout_marginLeft="140dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#3CEDE8"
+            app:cardCornerRadius="20dp"
+            app:contentPadding="25dp">
+
+            <TextView
+                android:id="@+id/userMessageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </RelativeLayout>

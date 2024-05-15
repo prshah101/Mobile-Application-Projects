@@ -41,13 +41,14 @@
                 android:inputType="text"
                 android:textSize="18sp" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/sendBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:text="Send"
-                android:textSize="18sp" />
+                android:background="#6F46B1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/arrow" />
         </LinearLayout>
 
     </LinearLayout>
