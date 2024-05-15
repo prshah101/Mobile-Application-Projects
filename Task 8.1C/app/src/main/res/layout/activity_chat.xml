@@ -8,35 +8,46 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#17A4FF"
         android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/chatContainer"
+        <ScrollView
             android:layout_width="360dp"
-            android:layout_height="500dp"
-            android:orientation="vertical"></LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/chatLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="360dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/inputMessageEditText"
+                android:id="@+id/inputMessageEt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="Enter text"
                 android:inputType="text"
-                android:text="Name" />
+                android:textSize="18sp" />
 
             <Button
-                android:id="@+id/sendButton"
+                android:id="@+id/sendBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:layout_marginLeft="10dp"
+                android:text="Send"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

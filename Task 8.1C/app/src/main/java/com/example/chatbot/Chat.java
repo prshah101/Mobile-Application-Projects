@@ -1,9 +1,7 @@
 package com.example.chatbot;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -11,15 +9,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 
-import okhttp3.OkHttpClient;
 //import retrofit2.Call;
 //import retrofit2.Callback;
 //import retrofit2.Response;
@@ -30,25 +23,19 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.Objects;
 
 public class Chat extends AppCompatActivity {
-    Button sendButton;
-    EditText inputMessageEditText;
+    Button sendBtn;
+    EditText inputMessageEt;
 
-    LinearLayout chatContainer;
+    LinearLayout chatLayout;
 
     JSONArray chatHistory = new JSONArray();
     @Override
@@ -56,14 +43,14 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        sendButton = findViewById(R.id.sendButton);
-        inputMessageEditText = findViewById(R.id.inputMessageEditText);
-        chatContainer = findViewById(R.id.chatContainer);
+        sendBtn = findViewById(R.id.sendBtn);
+        inputMessageEt = findViewById(R.id.inputMessageEt);
+        chatLayout = findViewById(R.id.chatLayout);
 
-        sendButton.setOnClickListener(v -> {
-            String userMessage = inputMessageEditText.getText().toString();
+        sendBtn.setOnClickListener(v -> {
+            String userMessage = inputMessageEt.getText().toString();
             sendMessageToAPI(userMessage);
-            inputMessageEditText.getText().clear();
+            inputMessageEt.getText().clear();
 
         });
     }
@@ -79,25 +66,21 @@ public class Chat extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Log.i("MainActivity", "Request Body: " + requestBody.toString());
-
-        sendMessage(userMessage, "", "user");
+        displayMessage(userMessage, "", "user");
          JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, requestBody,
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            String botMessage = response.getString("message");
-                            Log.i("MainActivity", "Request message: " + botMessage);
-
-                            sendMessage(userMessage, botMessage, "bot");
+                            String llamaMessage = response.getString("message");
+                            displayMessage(userMessage, llamaMessage, "llama");
 
                             JSONObject chat = new JSONObject();
 
                             try {
                                 chat.put("User", userMessage);
-                                chat.put("Llama", botMessage);
+                                chat.put("Llama", llamaMessage);
                                 chatHistory.put(chat);
 
                             } catch (JSONException e) {
@@ -123,19 +106,19 @@ public class Chat extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    private void sendMessage(String originalMessage, String message, String type) {
-        if (type =="user") {
-            RelativeLayout userBubbleView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.user_chat_bubble, chatContainer, false);
-            TextView userMessageTextView = userBubbleView.findViewById(R.id.userMessageTextView);
-            userMessageTextView.setText(originalMessage);
+    private void displayMessage(String originalMessage, String message, String type) {
+        if (Objects.equals(type, "user")) {
+            RelativeLayout userChatView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.user_chat_box, chatLayout, false);
+            TextView userMessageTv = userChatView.findViewById(R.id.userMessageTextView);
+            userMessageTv.setText(originalMessage);
 
-            chatContainer.addView(userBubbleView);
-        } else if (type =="bot") {
-            RelativeLayout botBubbleView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.bot_chat_bubble, chatContainer, false);
-            TextView botMessageTextView = botBubbleView.findViewById(R.id.botMessageTextView);
-            botMessageTextView.setText(message);
+            chatLayout.addView(userChatView);
+        } else if (Objects.equals(type, "llama")) {
+            RelativeLayout llamaChatView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.llama_chat_box, chatLayout, false);
+            TextView llamaMessageTv = llamaChatView.findViewById(R.id.llamaMessageTextView);
+            llamaMessageTv.setText(message);
 
-            chatContainer.addView(botBubbleView);
+            chatLayout.addView(llamaChatView);
         }
     }
 }
