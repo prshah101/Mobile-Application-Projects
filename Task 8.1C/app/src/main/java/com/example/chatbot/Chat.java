@@ -27,7 +27,6 @@ import okhttp3.OkHttpClient;
 //import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -48,6 +47,7 @@ import java.util.concurrent.TimeUnit;
 public class Chat extends AppCompatActivity {
     Button sendButton;
     EditText inputMessageEditText;
+
     LinearLayout chatContainer;
 
     JSONArray chatHistory = new JSONArray();
@@ -69,7 +69,7 @@ public class Chat extends AppCompatActivity {
     }
 
     private void sendMessageToAPI(String userMessage) {
-        String url = "http://10.0.2.2:5000/chat";
+        String url = "http://api.sheronsuditha.me:5051/chat";
 
         JSONObject requestBody = new JSONObject();
         try {
@@ -89,13 +89,15 @@ public class Chat extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             String botMessage = response.getString("message");
+                            Log.i("MainActivity", "Request message: " + botMessage);
+
                             sendMessage(userMessage, botMessage, "bot");
 
                             JSONObject chat = new JSONObject();
 
                             try {
-                                chat.put("name", "User");
-                                chat.put("name", "Llama");
+                                chat.put("User", userMessage);
+                                chat.put("Llama", botMessage);
                                 chatHistory.put(chat);
 
                             } catch (JSONException e) {
@@ -122,13 +124,13 @@ public class Chat extends AppCompatActivity {
     }
 
     private void sendMessage(String originalMessage, String message, String type) {
-        if (type.equals("user")) {
+        if (type =="user") {
             RelativeLayout userBubbleView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.user_chat_bubble, chatContainer, false);
             TextView userMessageTextView = userBubbleView.findViewById(R.id.userMessageTextView);
             userMessageTextView.setText(originalMessage);
 
             chatContainer.addView(userBubbleView);
-        } else if (type.equals("bot")) {
+        } else if (type =="bot") {
             RelativeLayout botBubbleView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.bot_chat_bubble, chatContainer, false);
             TextView botMessageTextView = botBubbleView.findViewById(R.id.botMessageTextView);
             botMessageTextView.setText(message);
