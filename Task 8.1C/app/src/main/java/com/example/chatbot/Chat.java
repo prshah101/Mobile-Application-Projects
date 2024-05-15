@@ -54,6 +54,12 @@ public class Chat extends AppCompatActivity {
             inputMessageEt.getText().clear();
 
         });
+
+        RelativeLayout llamaChatView = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.llama_chat_box, chatLayout, false);
+        TextView llamaMessageTv = llamaChatView.findViewById(R.id.llamaMessageTextView);
+        llamaMessageTv.setText("Welcome User");
+
+        chatLayout.addView(llamaChatView);
     }
 
     private void sendMessageToAPI(String userMessage) {
