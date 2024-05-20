@@ -1,8 +1,11 @@
 package com.example.lostandfoundv2;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,8 +22,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -43,6 +54,8 @@ public class NewAdvertActivity extends AppCompatActivity {
 
     private Calendar calendar;
 
+    String location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +70,6 @@ public class NewAdvertActivity extends AppCompatActivity {
         phoneEt = findViewById(R.id.phoneEt);
         descriptionEt = findViewById(R.id.descriptionEt);
         dateUserTv = findViewById(R.id.dateUserTv);
-        locationEt = findViewById(R.id.locationEt);
         saveBtn = findViewById(R.id.saveBtn);
         backBtn1 = findViewById(R.id.backBtn1);
 
@@ -89,7 +101,34 @@ public class NewAdvertActivity extends AppCompatActivity {
             }
         });
 
+        String apiKey = getString(R.string.api_key);
 
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), apiKey);
+        }
+
+        // Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(this);
+
+
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                location =  place.getName();
+            }
+
+            @Override
+            public void onError(Status status) {
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
     }
 
     // Method to show DatePickerDialog
@@ -122,7 +161,6 @@ public class NewAdvertActivity extends AppCompatActivity {
         String phoneString = phoneEt.getText().toString().trim();
         String description = descriptionEt.getText().toString().trim();
         String dateString = dateUserTv.getText().toString().trim(); // Assuming date format is entered correctly
-        String location = locationEt.getText().toString().trim();
         boolean isLost = lostBtn.isChecked();
 
         boolean radioBtnnotSelected = postTypeRadioGroup.getCheckedRadioButtonId() == -1;
