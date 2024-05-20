@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     Button createBtn;
 
     Button showBtn;
+
+    Button showOnMapBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         titleTv = findViewById(R.id.titleTv);
         createBtn = findViewById(R.id.createBtn);
         showBtn = findViewById(R.id.showBtn);
+        showOnMapBtn = findViewById(R.id.showOnMapBtn);
 
         // Set OnClickListener for create button, that leads to the activity where a new advert can  be created
         createBtn.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AllAdvertsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        showOnMapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShowMapActivity.class);
                 startActivity(intent);
             }
         });

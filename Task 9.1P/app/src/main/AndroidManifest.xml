@@ -25,6 +25,11 @@
         <activity android:name=".NewAdvertActivity" />
         <activity android:name=".AllAdvertsActivity" />
         <activity android:name=".RemoveAdvertActivity" />
+        <activity android:name=".ShowMapActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDB8Z4D6Qj4Vl2IoHLf5RQxhMLCyLa-M9A"/>
     </application>
 
 </manifest>
