@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.lostandfoundapp.Advert;
+import com.example.lostandfoundv2.Advert;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

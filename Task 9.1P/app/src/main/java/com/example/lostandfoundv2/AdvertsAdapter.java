@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lostandfoundapp.Advert;
-import com.example.lostandfoundapp.R;
+import com.example.lostandfoundv2.Advert;
+import com.example.lostandfoundv2.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
