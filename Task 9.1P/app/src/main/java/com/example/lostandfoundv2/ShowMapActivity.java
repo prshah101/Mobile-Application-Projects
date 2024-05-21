@@ -13,6 +13,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap gMap;
@@ -27,19 +29,25 @@ public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        LatLng location1 = new LatLng(55.6761, 12.5683); // Copenhagen
-        LatLng location2 = new LatLng(48.8566, 2.3522);  // Paris
-        LatLng location3 = new LatLng(51.5074, -0.1278); // London
 
-        googleMap.addMarker(new MarkerOptions().position(location1).title("Copenhagen"));
-        googleMap.addMarker(new MarkerOptions().position(location2).title("Paris"));
-        googleMap.addMarker(new MarkerOptions().position(location3).title("London"));
+        // Retrieve all adverts from the database
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        List<Advert> adverts = databaseHelper.getAllAdverts();
 
         // Create a LatLngBounds builder to include all the markers
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(location1);
-        builder.include(location2);
-        builder.include(location3);
+
+        // Loop through each advert and add a marker for its location
+        for (Advert advert : adverts) {
+            double latitude = advert.getLatitude();
+            double longitude = advert.getLongitude();
+            LatLng location = new LatLng(latitude, longitude);
+
+            googleMap.addMarker(new MarkerOptions().position(location).title(advert.getName()));
+
+            // Include the location in the LatLngBounds builder
+            builder.include(location);
+        }
 
         // Get the LatLngBounds
         LatLngBounds bounds = builder.build();

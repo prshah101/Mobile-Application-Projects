@@ -124,7 +124,6 @@ public class NewAdvertActivity extends AppCompatActivity {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
 
                 // Get the LatLng object
                 LatLng latLng = place.getLatLng();
@@ -169,7 +168,6 @@ public class NewAdvertActivity extends AppCompatActivity {
 
     // Method to add an advert to the database by managing user inputs
     private void addAdvertToDatabase() {
-        Log.i(TAG, "Latitude: " + latitude + ", Longitude: " + longitude);
         String name = nameEt.getText().toString().trim();
         String phoneString = phoneEt.getText().toString().trim();
         String description = descriptionEt.getText().toString().trim();
