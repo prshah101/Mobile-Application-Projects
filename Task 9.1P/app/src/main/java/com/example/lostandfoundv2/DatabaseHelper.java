@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.lostandfoundv2.Advert;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,24 +24,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DATE = "DATE";
     public static final String COLUMN_LOCATION = "LOCATION";
     public static final String COLUMN_IS_LOST = "IS_LOST";
+    public static final String COLUMN_LATITUDE = "LATITUDE";
+    public static final String COLUMN_LONGITUDE = "LONGITUDE";
 
-    //Constructor to define database
+    // Constructor to define database
     public DatabaseHelper(@Nullable Context context) {
         super(context, "lostandfound.db", null, 1);
     }
 
-    //Create the Adverts table in the SQLite database
+    // Create the Adverts table in the SQLite database
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create Adverts table
         String createTableStatement = "CREATE TABLE " + ADVERTS_TABLE + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // Added ID with AUTOINCREMENT
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
                 COLUMN_PHONE + " INTEGER, " +
                 COLUMN_DESCRIPTION + " TEXT, " +
                 COLUMN_DATE + " TEXT, " +
                 COLUMN_LOCATION + " TEXT, " +
-                COLUMN_IS_LOST + " INTEGER)";
+                COLUMN_IS_LOST + " INTEGER, " +
+                COLUMN_LATITUDE + " REAL, " +  // Add LATITUDE column
+                COLUMN_LONGITUDE + " REAL)";   // Add LONGITUDE column
         db.execSQL(createTableStatement);
     }
 
@@ -67,9 +68,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String formattedDate = dateFormat.format(advert.getDate());
         cv.put(COLUMN_DATE, formattedDate);
 
-
         cv.put(COLUMN_LOCATION, advert.getLocation());
         cv.put(COLUMN_IS_LOST, advert.isLost() ? 1 : 0);
+        cv.put(COLUMN_LATITUDE, advert.getLatitude());  // Add LATITUDE
+        cv.put(COLUMN_LONGITUDE, advert.getLongitude()); // Add LONGITUDE
 
         long insert = db.insert(ADVERTS_TABLE, null, cv);
         return insert != -1;
@@ -85,14 +87,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 String name = cursor.getString(1);
-                Integer phone = cursor.getInt(2);
+                int phone = cursor.getInt(2);
                 String description = cursor.getString(3);
                 String dateString = cursor.getString(4);
                 String location = cursor.getString(5);
                 boolean isLost = cursor.getInt(6) == 1;
+                double latitude = cursor.getDouble(7);   // Get LATITUDE
+                double longitude = cursor.getDouble(8);  // Get LONGITUDE
 
-                // Create Advert object and add to list
-                Advert advert = new Advert(name, phone, description, dateString, location, isLost);
+                Advert advert = new Advert(name, phone, description, dateString, location, isLost, latitude, longitude);
                 adverts.add(advert);
             } while (cursor.moveToNext());
         }
@@ -103,13 +106,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean removeAdvertByName(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        // Define the where clause
         String whereClause = COLUMN_NAME + "=?";
-        // Define the arguments for the where clause
         String[] whereArgs = {name};
-        // Execute the delete query
         int rowsDeleted = db.delete(ADVERTS_TABLE, whereClause, whereArgs);
-        // Return true if at least one row was deleted, false otherwise
         return rowsDeleted > 0;
     }
 
@@ -127,12 +126,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String dateString = cursor.getString(4);
             String location = cursor.getString(5);
             boolean isLost = cursor.getInt(6) == 1;
+            double latitude = cursor.getDouble(7);   // Get LATITUDE
+            double longitude = cursor.getDouble(8);  // Get LONGITUDE
 
-            advert = new Advert(advertName, phone, description, dateString, location, isLost);
+            advert = new Advert(advertName, phone, description, dateString, location, isLost, latitude, longitude);
         }
 
         cursor.close();
         return advert;
     }
-
 }

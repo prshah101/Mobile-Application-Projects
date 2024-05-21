@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -54,8 +55,11 @@ public class NewAdvertActivity extends AppCompatActivity {
 
     private Calendar calendar;
 
+    double latitude;
+
     String location;
 
+    double longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,12 +119,20 @@ public class NewAdvertActivity extends AppCompatActivity {
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+
+                // Get the LatLng object
+                LatLng latLng = place.getLatLng();
+                if (latLng != null) {
+                    latitude = latLng.latitude;
+                    longitude = latLng.longitude;
+                    Log.i(TAG, "Latitude: " + latitude + ", Longitude: " + longitude);
+                }
                 location =  place.getName();
             }
 
@@ -157,6 +169,7 @@ public class NewAdvertActivity extends AppCompatActivity {
 
     // Method to add an advert to the database by managing user inputs
     private void addAdvertToDatabase() {
+        Log.i(TAG, "Latitude: " + latitude + ", Longitude: " + longitude);
         String name = nameEt.getText().toString().trim();
         String phoneString = phoneEt.getText().toString().trim();
         String description = descriptionEt.getText().toString().trim();
@@ -177,7 +190,7 @@ public class NewAdvertActivity extends AppCompatActivity {
                 //Create instance of DatabaseHelper
                 DatabaseHelper databaseHelper = new DatabaseHelper(NewAdvertActivity.this);
                 // Add advert to the database
-                boolean success = databaseHelper.addOneAdvert(new Advert(name, phone, description, dateString, location, isLost));
+                boolean success = databaseHelper.addOneAdvert(new Advert(name, phone, description, dateString, location, isLost, latitude, longitude));
                 if (success) {
                     Toast.makeText(this, "Advert added successfully", Toast.LENGTH_SHORT).show();
                     // Clear input fields after successful addition
@@ -185,7 +198,6 @@ public class NewAdvertActivity extends AppCompatActivity {
                     phoneEt.setText("");
                     descriptionEt.setText("");
                     dateUserTv.setText("");
-                    locationEt.setText("");
                 } else {
                     Toast.makeText(this, "Failed to add advert", Toast.LENGTH_SHORT).show();
                 }

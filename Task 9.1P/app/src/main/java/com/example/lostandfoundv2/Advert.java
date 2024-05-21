@@ -12,15 +12,19 @@ public class Advert {
     private Date date;
     private String location;
     private boolean isLost;
+    private double latitude;
+    private double longitude;
 
     // Constructor
-    public Advert(String name, int phone, String description, String date, String location, boolean isLost) {
+    public Advert(String name, int phone, String description, String date, String location, boolean isLost, double latitude, double longitude) {
         this.name = name;
         this.phone = phone;
         this.description = description;
         this.date = parseDate(date);
         this.location = location;
         this.isLost = isLost;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // Method to parse date string into Date object
@@ -82,5 +86,13 @@ public class Advert {
 
     public void setLost(boolean lost) {
         isLost = lost;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }
