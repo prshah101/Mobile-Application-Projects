@@ -33,6 +33,7 @@
         <activity android:name=".DoQuiz" />
         <activity android:name=".QuizResults" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".UpgradeActivity" />
 
     </application>
 

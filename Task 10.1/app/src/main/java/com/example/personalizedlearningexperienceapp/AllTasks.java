@@ -32,7 +32,7 @@ public class AllTasks extends AppCompatActivity {
 
     ListView listView;
 
-
+    String username;
     TextView textView;
 
     @Override
@@ -45,7 +45,7 @@ public class AllTasks extends AppCompatActivity {
         allTasksTitle3 = findViewById(R.id.settingsSummarisedTitle);
 
         // Retrieve selected news ID and source information from SignUp page
-        String username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("username");
         allTasksTitle2.setText(username);
 
         fetchTriviaQuestions();
@@ -68,6 +68,7 @@ public class AllTasks extends AppCompatActivity {
                 if (item.getItemId() == R.id.action_settings) {
                     // Navigate to SettingsActivity
                     Intent intent = new Intent(AllTasks.this, SettingsActivity.class);
+                    intent.putExtra("username", username);
                     startActivity(intent);
                     return true;
                 }
