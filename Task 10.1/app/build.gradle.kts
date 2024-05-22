@@ -38,6 +38,7 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.android.volley:volley:1.2.1")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
