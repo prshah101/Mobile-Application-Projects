@@ -32,6 +32,7 @@
         <activity android:name=".AllTasks" />
         <activity android:name=".DoQuiz" />
         <activity android:name=".QuizResults" />
+        <activity android:name=".SettingsActivity" />
 
     </application>
 

@@ -1,8 +1,12 @@
 package com.example.personalizedlearningexperienceapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +21,8 @@ import com.example.personalizedlearningexperienceapp.Models.QuizResponse;
 import com.google.gson.Gson;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AllTasks extends AppCompatActivity {
 
@@ -36,13 +42,39 @@ public class AllTasks extends AppCompatActivity {
 
         allTasksTitle1 = findViewById(R.id.allTasksTitle);
         allTasksTitle2 = findViewById(R.id.allTasksTitle12);
-        allTasksTitle3 = findViewById(R.id.allTasksTitle13);
+        allTasksTitle3 = findViewById(R.id.settingsSummarisedTitle);
 
         // Retrieve selected news ID and source information from SignUp page
         String username = getIntent().getStringExtra("username");
         allTasksTitle2.setText(username);
 
         fetchTriviaQuestions();
+
+        CircleImageView profileImage = findViewById(R.id.profileImage);
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupMenu(view);
+            }
+        });
+    }
+
+    private void showPopupMenu(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_settings) {
+                    // Navigate to SettingsActivity
+                    Intent intent = new Intent(AllTasks.this, SettingsActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+        popup.show();
     }
 
 
