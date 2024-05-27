@@ -47,7 +47,6 @@ public class NewAdvertActivity extends AppCompatActivity {
     private EditText phoneEt;
     private EditText descriptionEt;
     private TextView dateUserTv;
-    private EditText locationEt;
 
     private Button saveBtn;
 
@@ -111,16 +110,15 @@ public class NewAdvertActivity extends AppCompatActivity {
             Places.initialize(getApplicationContext(), apiKey);
         }
 
-        // Create a new Places client instance.
-        PlacesClient placesClient = Places.createClient(this);
 
-
-        // Initialize the AutocompleteSupportFragment.
+        // Initialize the AutocompleteSupportFragment in the new_advert.xml
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
+        //Set the place fields we want to retrieve
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
 
+        //When a Place has been selected by the user save the latitude and longitude in variables
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
@@ -142,7 +140,7 @@ public class NewAdvertActivity extends AppCompatActivity {
         });
     }
 
-    // Method to show DatePickerDialog
+    // Method to show DatePickerDialog, to enable the user to choose a date in a userfriendly way
     private void showDatePickerDialog() {
         // Create a DatePickerDialog and set the current date as default
         DatePickerDialog datePickerDialog = new DatePickerDialog(

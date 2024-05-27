@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Set OnClickListener for show On Map button, this leads to the activity where a google map shows the different locations of items lost or found
         showOnMapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

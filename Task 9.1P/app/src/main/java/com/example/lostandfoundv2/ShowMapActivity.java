@@ -23,6 +23,7 @@ public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_map_activity);
 
+        // Initialize the SupportMapFragment in the show_map_activity.xml
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.id_map);
         mapFragment.getMapAsync(this);
     }
@@ -43,7 +44,14 @@ public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCall
             double longitude = advert.getLongitude();
             LatLng location = new LatLng(latitude, longitude);
 
-            googleMap.addMarker(new MarkerOptions().position(location).title(advert.getName()));
+            String status; //Was the item lost or found?
+            if (advert.isLost()) {
+                status = "Lost: ";
+            } else {
+                status = "Found: ";
+            }
+
+            googleMap.addMarker(new MarkerOptions().position(location).title(status + advert.getName()));
 
             // Include the location in the LatLngBounds builder
             builder.include(location);
@@ -53,7 +61,7 @@ public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCall
         LatLngBounds bounds = builder.build();
 
         // Adjust the padding as needed (in pixels)
-        int padding = 100; // Offset from edges of the map in pixels
+        int padding = 100;
 
         // Move and animate the camera to show all markers within the bounds
         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));

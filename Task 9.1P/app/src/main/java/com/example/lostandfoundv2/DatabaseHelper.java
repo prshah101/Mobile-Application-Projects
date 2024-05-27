@@ -43,8 +43,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_DATE + " TEXT, " +
                 COLUMN_LOCATION + " TEXT, " +
                 COLUMN_IS_LOST + " INTEGER, " +
-                COLUMN_LATITUDE + " REAL, " +  // Add LATITUDE column
-                COLUMN_LONGITUDE + " REAL)";   // Add LONGITUDE column
+                COLUMN_LATITUDE + " REAL, " +
+                COLUMN_LONGITUDE + " REAL)";
         db.execSQL(createTableStatement);
     }
 
@@ -70,8 +70,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_LOCATION, advert.getLocation());
         cv.put(COLUMN_IS_LOST, advert.isLost() ? 1 : 0);
-        cv.put(COLUMN_LATITUDE, advert.getLatitude());  // Add LATITUDE
-        cv.put(COLUMN_LONGITUDE, advert.getLongitude()); // Add LONGITUDE
+        cv.put(COLUMN_LATITUDE, advert.getLatitude());
+        cv.put(COLUMN_LONGITUDE, advert.getLongitude());
 
         long insert = db.insert(ADVERTS_TABLE, null, cv);
         return insert != -1;
@@ -104,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return adverts;
     }
 
+    //Remove an advert from the database by name
     public boolean removeAdvertByName(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = COLUMN_NAME + "=?";
@@ -112,6 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsDeleted > 0;
     }
 
+    //Retrieve an advert from the database by name
     public Advert getAdvertByName(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
         Advert advert = null;
