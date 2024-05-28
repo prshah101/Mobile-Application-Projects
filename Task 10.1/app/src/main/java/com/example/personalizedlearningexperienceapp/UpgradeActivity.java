@@ -39,7 +39,7 @@ public class UpgradeActivity extends AppCompatActivity {
     String EphiricalKey;
     String ClientSecret;
 
-    String price = "5";
+    String price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +70,53 @@ public class UpgradeActivity extends AppCompatActivity {
 
             OnPaymentResult(paymentSheetResult);
         });
+
+
+        // Set onClickListener for back button
+        backBtnIcon2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(UpgradeActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Set onClickListener for Starter Purchase
+        purchaseBtnCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                price = "5";
+                StartRequests();
+            }
+        });
+
+        // Set onClickListener for Intermediate Purchase
+        purchaseBtnCard2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                price = "10";
+                StartRequests();
+            }
+        });
+
+        // Set onClickListener for Advanced Purchase
+        purchaseBtnCard3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                price = "15";
+                StartRequests();
+            }
+        });
+    }
+
+    private void OnPaymentResult(PaymentSheetResult paymentSheetResult) {
+        if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
+            Toast.makeText(this, "payment success", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void StartRequests() { //The chain of requests first start by creating a customer
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/customers",
                 new Response.Listener<String>() {
                     @Override
@@ -77,7 +124,7 @@ public class UpgradeActivity extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             customerID = object.getString("id");
-                            //Toast.makeText(UpgradeActivity.this, customerID, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpgradeActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
                             GetEphiricalKey(customerID);
 
 
@@ -102,50 +149,9 @@ public class UpgradeActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(UpgradeActivity.this);
         requestQueue.add(stringRequest);
-
-
-        // Set onClickListener for back button
-        backBtnIcon2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(UpgradeActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // Set onClickListener for purchase button
-        purchaseBtnCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PaymentFlow();
-            }
-        });
-
-        // Set onClickListener for purchase button 2
-        purchaseBtnCard2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle purchase button click for intermediate upgrade
-            }
-        });
-
-        // Set onClickListener for purchase button 3
-        purchaseBtnCard3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle purchase button click for advanced upgrade
-            }
-        });
     }
 
-    private void OnPaymentResult(PaymentSheetResult paymentSheetResult) {
-        if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
-            Toast.makeText(this, "payment success", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void GetEphiricalKey(String customerID) {
+    private void GetEphiricalKey(String customerID) { //Create an Ephemeral Key for the Customer
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/ephemeral_keys",
                 new Response.Listener<String>() {
                     @Override
@@ -190,7 +196,7 @@ public class UpgradeActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void GetClientSecret(String customerID, String ephiricalKey) {
+    private void GetClientSecret(String customerID, String ephiricalKey) { //Create a PaymentIntent for the Customer
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/payment_intents",
                 new Response.Listener<String>() {
                     @Override
@@ -198,9 +204,8 @@ public class UpgradeActivity extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(response);
                             ClientSecret= object.getString("client_secret");
-                            Toast.makeText(UpgradeActivity.this, "You may now choose an option", Toast.LENGTH_SHORT).show();
 
-
+                            PaymentFlow();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -237,7 +242,7 @@ public class UpgradeActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void PaymentFlow() {
+    private void PaymentFlow() { //Initiate the payment screen appearing. This appears after the chain of 3 requests
 
         paymentSheet.presentWithPaymentIntent(
                 ClientSecret, new PaymentSheet.Configuration( "Learning Company"
