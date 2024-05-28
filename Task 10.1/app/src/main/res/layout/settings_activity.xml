@@ -198,7 +198,7 @@
                             android:id="@+id/correctlyAnsweredCountTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2"
+                            android:text="1"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp" />
                     </LinearLayout>
@@ -268,7 +268,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="2"
+                                android:text="1"
                                 android:textColor="#FFFFFF"
                                 android:textSize="20sp" />
                         </LinearLayout>

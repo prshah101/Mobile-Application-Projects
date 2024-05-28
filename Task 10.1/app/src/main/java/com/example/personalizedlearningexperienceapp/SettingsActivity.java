@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, username + " has a score of ");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, username + " has a score of " + correctlyAnsweredCountTv.getText() + "/" + totalQuestionsCountTv.getText());
                 sendIntent.setType("text/plain");
 
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
