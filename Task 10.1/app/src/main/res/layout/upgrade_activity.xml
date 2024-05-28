@@ -92,7 +92,7 @@
                     android:textColor="#FBFBFB" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/purchaseBtnCard"
+                    android:id="@+id/shareBtnCard"
                     android:layout_width="340dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

@@ -311,7 +311,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Summary"
+                            android:text="Answered some questions about Computers"
                             android:textColor="#FFFFFF" />
 
                     </LinearLayout>
@@ -365,7 +365,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/purchaseBtnCard"
+                android:id="@+id/shareBtnCard"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

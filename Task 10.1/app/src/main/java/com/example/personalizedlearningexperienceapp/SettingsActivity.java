@@ -19,6 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
         ImageView backBtnIcon = findViewById(R.id.backBtnIcon);
         CardView backBtnCard = findViewById(R.id.backBtnCard);
         CardView upgradeBtnCard = findViewById(R.id.upgradeBtnCard);
+        CardView shareBtnCard = findViewById(R.id.shareBtnCard);
         TextView settingsUsernameTv = findViewById(R.id.settingsUsernameTv);
         ImageView profileImage = findViewById(R.id.profileImage);
         ImageView settingsImageView = findViewById(R.id.settingsImageView);
@@ -45,6 +46,21 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, UpgradeActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        //Share the details of the user
+        shareBtnCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, username + " has a score of ");
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
             }
         });
 

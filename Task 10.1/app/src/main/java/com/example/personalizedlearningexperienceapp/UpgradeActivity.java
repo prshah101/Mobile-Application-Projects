@@ -18,7 +18,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.stripe.android.PaymentConfiguration;
-import com.stripe.android.model.SetupIntent;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.stripe.android.paymentsheet.PaymentSheetResult;
 
@@ -51,7 +50,7 @@ public class UpgradeActivity extends AppCompatActivity {
         TextView upgradeTv2 = findViewById(R.id.upgradeTv2);
         TextView tvStarter = findViewById(R.id.tvStarter);
         TextView upgradeDescTv = findViewById(R.id.upgradeDescTv);
-        CardView purchaseBtnCard = findViewById(R.id.purchaseBtnCard);
+        CardView purchaseBtnCard = findViewById(R.id.shareBtnCard);
         TextView purchaseBtnText = findViewById(R.id.purchaseBtnText);
         TextView tvIntermediate = findViewById(R.id.tvIntermediate);
         TextView upgradeDescTv2 = findViewById(R.id.upgradeDescTv2);
