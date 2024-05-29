@@ -63,7 +63,7 @@ public class SignUp extends AppCompatActivity {
                     } else {
                         // Else username is unique, proceed with adding login details to the database
                         // Create a LoginDetails instance
-                        UserDetails userDetails = new UserDetails(username, passwordValue.getText().toString(), emailValue.getText().toString(), Integer.parseInt(phoneNumberValue.getText().toString()));
+                        UserDetails userDetails = new UserDetails(username, passwordValue.getText().toString(), emailValue.getText().toString(), (int) Long.parseLong(phoneNumberValue.getText().toString()));
 
                         // Access the addOneLogin() method in the database to add the loginDetails to the database
                         boolean success = databaseHelper.addOneUser(userDetails);
