@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ public class QuizResults extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
 
+    Button backToTasksBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,7 @@ public class QuizResults extends AppCompatActivity {
         textChosen2 = findViewById(R.id.textChosen2);
         explainTv = findViewById(R.id.explainTv);
         explainTv2 = findViewById(R.id.explainTv2);
+        backToTasksBtn = findViewById(R.id.backToTasksBtn);
         explainTv.setVisibility(View.INVISIBLE);
         explainTv2.setVisibility(View.INVISIBLE);
 
@@ -82,11 +86,16 @@ public class QuizResults extends AppCompatActivity {
         totalScore = correctScore + wrongScore;
 
         // Store the scores in the database
-        boolean isScoreAdded = databaseHelper.addOrUpdateScores(username, totalScore, correctScore, wrongScore);
-        if (isScoreAdded) {
-            Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Not Added", Toast.LENGTH_SHORT).show();
-        }
+        databaseHelper.addOrUpdateScores(username, totalScore, correctScore, wrongScore);
+
+        //Go back to the Page with All th tasks to do
+        backToTasksBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AllTasks.class);
+                intent.putExtra("username", username);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 }

@@ -184,12 +184,12 @@
 
 
         <Button
-            android:id="@+id/shareBtn"
+            android:id="@+id/backToTasksBtn"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:backgroundTint="#02FD71"
-            android:text="Continue" />
+            android:text="Back to the All Tasks page" />
 
     </LinearLayout>
 
