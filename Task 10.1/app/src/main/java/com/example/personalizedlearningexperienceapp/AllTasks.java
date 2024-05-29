@@ -78,7 +78,7 @@ public class AllTasks extends AppCompatActivity {
         popup.show();
     }
 
-
+    //Fetch the Trivia Questions using Volley to make requests
     private void fetchTriviaQuestions() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://opentdb.com/api.php?amount=3&category=18&type=multiple";
