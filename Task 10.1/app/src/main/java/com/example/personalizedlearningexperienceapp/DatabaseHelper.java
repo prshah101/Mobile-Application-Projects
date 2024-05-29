@@ -25,6 +25,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_INTERESTS_USERNAME = "USERNAME";
     public static final String COLUMN_INTEREST = "INTEREST";
 
+    // Table and column names for Scores
+    public static final String SCORES_TABLE = "SCORES_TABLE";
+    public static final String COLUMN_SCORES_USERNAME = "USERNAME";
+    public static final String COLUMN_TOTAL_SCORE = "TOTAL_SCORE";
+    public static final String COLUMN_CORRECT_SCORE = "CORRECT_SCORE";
+    public static final String COLUMN_WRONG_SCORE = "WRONG_SCORE";
+
     // Constructor to define database
     public DatabaseHelper(Context context) {
         super(context, "learningapp.db", null, 1);
@@ -47,6 +54,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_INTEREST + " TEXT, " +
                 " FOREIGN KEY (" + COLUMN_INTERESTS_USERNAME + ") REFERENCES " + USER_TABLE + "(" + COLUMN_USERNAME + "))";
         db.execSQL(createPlaylistTableStatement);
+
+        // Create Scores table
+        String createScoresTableStatement = "CREATE TABLE " + SCORES_TABLE + " (" +
+                COLUMN_SCORES_USERNAME + " TEXT PRIMARY KEY, " +
+                COLUMN_TOTAL_SCORE + " INTEGER, " +
+                COLUMN_CORRECT_SCORE + " INTEGER, " +
+                COLUMN_WRONG_SCORE + " INTEGER, " +
+                " FOREIGN KEY (" + COLUMN_SCORES_USERNAME + ") REFERENCES " + USER_TABLE + "(" + COLUMN_USERNAME + "))";
+        db.execSQL(createScoresTableStatement);
     }
 
     // Method called when the database needs to be upgraded
@@ -138,6 +154,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
         return playlist;
+    }
+
+    // Method to add or update scores for a user
+    public boolean addOrUpdateScores(String username, int totalScore, int correctScore, int wrongScore) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_SCORES_USERNAME, username);
+        cv.put(COLUMN_TOTAL_SCORE, totalScore);
+        cv.put(COLUMN_CORRECT_SCORE, correctScore);
+        cv.put(COLUMN_WRONG_SCORE, wrongScore);
+
+        // Try to update existing scores
+        int rowsAffected = db.update(SCORES_TABLE, cv, COLUMN_SCORES_USERNAME + " = ?", new String[]{username});
+
+        if (rowsAffected == 0) {
+            // If no rows were updated, insert new scores
+            long insert = db.insert(SCORES_TABLE, null, cv);
+            return insert != -1;
+        } else {
+            return true;
+        }
+    }
+
+    // Method to retrieve scores for a given username
+    public Scores getScoresByUsername(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + SCORES_TABLE + " WHERE " + COLUMN_SCORES_USERNAME + " = ?";
+        Cursor cursor = db.rawQuery(queryString, new String[]{username});
+
+        if (cursor.moveToFirst()) {
+            int totalScore = cursor.getInt(1);
+            int correctScore = cursor.getInt(2);
+            int wrongScore = cursor.getInt(3);
+            return new Scores(username, totalScore, correctScore, wrongScore);
+        } else {
+            return new Scores("Not Found", 0, 0, 0);
+        }
     }
 }
 

@@ -264,7 +264,7 @@
                                 app:tint="@android:color/white" />
 
                             <TextView
-                                android:id="@+id/textView4"
+                                android:id="@+id/incorrectlyAnsweredCountTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"

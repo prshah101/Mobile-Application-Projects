@@ -21,10 +21,12 @@ import com.example.personalizedlearningexperienceapp.Models.QuizResponse;
 
 class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.MyHolder> {
     public ArrayList<QuizResponse.QuizResults> data;
+    public String username;
 
     // Constructor to initialize adapter with data
-    public TopicsAdapter(List<QuizResponse.QuizResults> data) {
+    public TopicsAdapter(String username, List<QuizResponse.QuizResults> data) {
         this.data = (ArrayList<QuizResponse.QuizResults>) data;
+        this.username = username;
     }
 
     @NonNull
@@ -48,6 +50,7 @@ class TopicsAdapter extends RecyclerView.Adapter<TopicsAdapter.MyHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DoQuiz.class);
                 intent.putExtra("selectedTopicData", data);
+                intent.putExtra("username", username);
                 v.getContext().startActivity(intent);
             }
         });

@@ -54,6 +54,10 @@ public class DoQuiz extends AppCompatActivity {
         Intent intent = getIntent();
         // Retrieve the SerialisedArrayList extra data
         ArrayList<QuizResponse.QuizResults> dataList = (ArrayList<QuizResponse.QuizResults>) intent.getSerializableExtra("selectedTopicData");
+
+        // Retrieve the username
+        String username = intent.getStringExtra("username");
+
         allTasksTitle1.setText("Generated Task " + 1);
         allTasksTitle2.setText(String.format("About %s", dataList.get(1).getCategory()));
 
@@ -137,6 +141,7 @@ public class DoQuiz extends AppCompatActivity {
                 intent.putExtra("question2", questionTv2.getText());
                 intent.putExtra("question2correctanswer", option11.getText());
                 intent.putExtra("choice2", choice2);
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });

@@ -92,7 +92,7 @@ public class AllTasks extends AppCompatActivity {
                     RecyclerView recyclerView = findViewById(R.id.rv2);
                     recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-                    TopicsAdapter adapter = new TopicsAdapter(todoTasks);
+                    TopicsAdapter adapter = new TopicsAdapter(username, todoTasks);
                     recyclerView.setAdapter(adapter);
                 }, error -> Log.e("MainActivity", "That didn't work", error));
 

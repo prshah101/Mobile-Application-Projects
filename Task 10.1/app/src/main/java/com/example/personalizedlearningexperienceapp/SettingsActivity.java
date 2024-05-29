@@ -9,38 +9,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
         // Initialize views
-        ImageView backBtnIcon = findViewById(R.id.backBtnIcon);
-        CardView backBtnCard = findViewById(R.id.backBtnCard);
         CardView upgradeBtnCard = findViewById(R.id.upgradeBtnCard);
         CardView shareBtnCard = findViewById(R.id.shareBtnCard);
         TextView settingsUsernameTv = findViewById(R.id.settingsUsernameTv);
-        ImageView profileImage = findViewById(R.id.profileImage);
-        ImageView settingsImageView = findViewById(R.id.settingsImageView);
-        TextView settingsNotification = findViewById(R.id.settingsNotification);
-        TextView totalQuestionsTitleTv = findViewById(R.id.totalQuestionsTitleTv);
         TextView totalQuestionsCountTv = findViewById(R.id.totalQuestionsCountTv);
-        TextView correctlyAnsweredQuestionsTitleTv = findViewById(R.id.correctlyAnsweredQuestionsTitleTv);
         TextView correctlyAnsweredCountTv = findViewById(R.id.correctlyAnsweredCountTv);
-        TextView incorrectTitleTv = findViewById(R.id.incorrectTitleTv);
-        TextView textView4 = findViewById(R.id.textView4);
-        ImageView bellImage = findViewById(R.id.bellImage);
-        TextView settingsSummarisedTitle = findViewById(R.id.settingsSummarisedTitle);
-        TextView SummaryTv = findViewById(R.id.SummaryTv);
-        TextView upgradeBtnText = findViewById(R.id.upgradeBtnText);
-        ImageView upgradeBtnIcon = findViewById(R.id.upgradeBtnIcon);
-        TextView shareBtnText = findViewById(R.id.purchaseBtnText);
-        ImageView shareBtnIcon = findViewById(R.id.shareBtnIcon);
+        TextView incorrectlyAnsweredCountTv = findViewById(R.id.incorrectlyAnsweredCountTv);
 
         String username = getIntent().getStringExtra("username");
         settingsUsernameTv.setText(username);
 
+        databaseHelper = new DatabaseHelper(SettingsActivity.this); // Initialize DatabaseHelper
+        Scores scores = databaseHelper.getScoresByUsername(username);
+        int totalScore = scores.getTotalScore();
+        int correctScore = scores.getCorrectScore();
+        int wrongScore = scores.getWrongScore();
+
+        totalQuestionsCountTv.setText(String.valueOf(totalScore));
+        correctlyAnsweredCountTv.setText(String.valueOf(correctScore));
+        incorrectlyAnsweredCountTv.setText(String.valueOf(wrongScore));
         upgradeBtnCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
